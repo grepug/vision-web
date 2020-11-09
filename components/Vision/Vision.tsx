@@ -1,10 +1,7 @@
 import * as React from "react";
 import {
-  Input,
   Divider,
   Table,
-  Form,
-  Popconfirm,
   Button,
   Dropdown,
   Menu,
@@ -23,198 +20,28 @@ import {
   UploadOutlined,
   PlusOutlined,
   DownloadOutlined,
-  DeleteOutlined,
 } from "@ant-design/icons";
-
-const EditableContext = React.createContext<any>(undefined);
+import { EditableCell } from "./EditableCell";
+import { EditableRow } from "./EditableRow";
+import { findLastIndex, uniq } from "./utils";
+import { getColumnConfig } from "./columnConfig";
 
 const initialObjective = new Objective();
 
 export function Vision() {
-  const [kRs, setKRs] = React.useState<KeyResult[]>([]);
+  const [keyResults, setKeyResults] = React.useState<KeyResult[]>([]);
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);
 
   function forceRender() {
-    setTimeout(() => {
-      setKey((s) => s + 1);
-    }, 0);
+    setTimeout(() => setKey((s) => s + 1), 0);
   }
 
-  const EditableRow = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-      <Form form={form} component={false}>
-        <EditableContext.Provider value={form}>
-          <tr {...props} />
-        </EditableContext.Provider>
-      </Form>
-    );
-  };
-
-  const EditableCell = ({
-    title,
-    editable,
-    children,
-    dataIndex,
-    record,
-    handleSave,
-    ...restProps
-  }) => {
-    const [editing, setEditing] = React.useState(false);
-    const inputRef = React.useRef(null);
-    const form = React.useContext(EditableContext);
-
-    React.useEffect(() => {
-      if (editing) {
-        // @ts-ignore
-        inputRef.current.focus();
-      }
-    }, [editing]);
-
-    const toggleEdit = () => {
-      setEditing(!editing);
-      form.setFieldsValue({
-        [dataIndex]: record[dataIndex],
-      });
-    };
-
-    const save = async (e) => {
-      try {
-        const values = await form.validateFields();
-        toggleEdit();
-        handleSave({ ...record, ...values });
-      } catch (errInfo) {
-        console.log("Save failed:", errInfo);
-      }
-    };
-
-    let childNode = children;
-
-    if (editable) {
-      childNode = editing ? (
-        <Form.Item
-          style={{
-            margin: 0,
-          }}
-          name={dataIndex}
-          rules={[
-            {
-              required: true,
-              message: `${title} is required.`,
-            },
-          ]}
-        >
-          <Input ref={inputRef as any} onPressEnter={save} onBlur={save} />
-        </Form.Item>
-      ) : (
-        <div
-          className="editable-cell-value-wrap"
-          style={{
-            paddingRight: 24,
-          }}
-          onClick={toggleEdit}
-        >
-          {children}
-        </div>
-      );
-    }
-
-    return <td {...restProps}>{childNode}</td>;
-  };
-
-  const columnConfig = [
-    {
-      title: "Objectives",
-      dataIndex: ["objective", "title"],
-      editable: true,
-      render: (value: string, row: KeyResult) => {
-        const obj: any = {
-          children: value,
-          props: {},
-        };
-
-        const isFirstKeyResultOfObjective = row.isEqual(
-          row.objective.keyResults[0]
-        );
-        const krLength = row.objective.keyResults.length;
-        obj.props.rowSpan = isFirstKeyResultOfObjective ? krLength : 0;
-
-        return obj;
-      },
-    },
-    {
-      title: "Objective Weight",
-      dataIndex: ["objective", "weight"],
-      editable: true,
-      render: (value: string, row: KeyResult) => {
-        const obj: any = {
-          children: `${value}%`,
-          props: {},
-        };
-
-        const isFirstKeyResultOfObjective = row.isEqual(
-          row.objective.keyResults[0]
-        );
-        const krLength = row.objective.keyResults.length;
-        obj.props.rowSpan = isFirstKeyResultOfObjective ? krLength : 0;
-
-        return obj;
-      },
-    },
-    {
-      title: "Key Results",
-      dataIndex: "title",
-      key: "id",
-      editable: true,
-    },
-    {
-      title: "Weight",
-      dataIndex: "weight",
-      editable: true,
-      render: (text) => `${text}%`,
-    },
-    {
-      title: "Unit",
-      dataIndex: "unit",
-      editable: true,
-    },
-    {
-      title: "Total Quantity",
-      dataIndex: "total",
-      editable: true,
-    },
-    {
-      title: "Current Quantity",
-      dataIndex: "current",
-      editable: true,
-    },
-    {
-      title: "Score",
-      dataIndex: "score",
-    },
-    {
-      title: "Operation",
-      dataIndex: "operation",
-      render: (_, record: KeyResult) =>
-        kRs.length >= 1 ? (
-          <Space>
-            <Button icon={<PlusOutlined />} type="text" />
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => {
-                handleDelete(record);
-              }}
-            >
-              <Button icon={<DeleteOutlined />} type="text" />
-            </Popconfirm>
-          </Space>
-        ) : null,
-    },
-  ];
-
-  const columns: ColumnsType = columnConfig.map((col) => {
+  const columns: ColumnsType = getColumnConfig({
+    handleDelete,
+    keyResults,
+  }).map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -232,7 +59,7 @@ export function Vision() {
   });
 
   function handleDelete(keyResult: KeyResult) {
-    setKRs((krs) => {
+    setKeyResults((krs) => {
       const index = krs.findIndex((el) => el.isEqual(keyResult));
 
       krs[index].objective.keyResults = krs[index].objective.keyResults.filter(
@@ -248,7 +75,7 @@ export function Vision() {
   }
 
   function handleEdit(keyResult: KeyResult) {
-    setKRs((krs) => {
+    setKeyResults((krs) => {
       const index = krs.findIndex((el) => el.isEqual(keyResult));
       krs[index].overrideProps(keyResult);
 
@@ -269,7 +96,7 @@ export function Vision() {
     keyResult.objective = objective!;
     objective!.linkKeyResults(keyResult);
 
-    setKRs((krs) => {
+    setKeyResults((krs) => {
       let insertIndex = krs.length;
 
       if (isExistedObjective) {
@@ -286,11 +113,11 @@ export function Vision() {
   }
 
   const objectives = uniq(
-    kRs.map((el) => el.objective),
+    keyResults.map((el) => el.objective),
     "id"
   );
 
-  console.log(kRs);
+  console.log(keyResults);
 
   const addKeyResultMenu = (
     <Menu>
@@ -313,7 +140,7 @@ export function Vision() {
     if (objectives) {
       const keyResults = Objective.arrToKeyResultArr(objectives);
 
-      setKRs(keyResults);
+      setKeyResults(keyResults);
 
       forceRender();
 
@@ -363,7 +190,7 @@ export function Vision() {
       <Divider />
       <Table
         key={key}
-        dataSource={kRs}
+        dataSource={keyResults}
         components={{
           body: {
             row: EditableRow,
@@ -376,35 +203,4 @@ export function Vision() {
       />
     </div>
   );
-}
-
-function uniq<T>(arr: T[], keyName: keyof T) {
-  let newArr: T[] = [];
-
-  for (const el of arr) {
-    const isIn = newArr.some((el2) => el2[keyName] === el[keyName]);
-    if (!isIn) {
-      newArr.push(el);
-    }
-  }
-
-  return newArr;
-}
-
-function findLastIndex<T>(arr: T[], predicate: (obj: T) => boolean) {
-  let index = -1;
-
-  for (let i = 0; i < arr.length; i++) {
-    const el = arr[i];
-
-    const isEqual = predicate(el);
-    const isNextEqual = arr[i + 1] ? predicate(arr[i + 1]) : false;
-
-    if (isEqual && !isNextEqual) {
-      index = i;
-      break;
-    }
-  }
-
-  return index;
 }

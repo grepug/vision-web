@@ -63,7 +63,7 @@ export function Vision() {
     ...restProps
   }) => {
     const [editing, setEditing] = React.useState(false);
-    const inputRef = React.useRef();
+    const inputRef = React.useRef(null);
     const form = React.useContext(EditableContext);
 
     React.useEffect(() => {
@@ -106,7 +106,7 @@ export function Vision() {
             },
           ]}
         >
-          <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+          <Input ref={inputRef as any} onPressEnter={save} onBlur={save} />
         </Form.Item>
       ) : (
         <div

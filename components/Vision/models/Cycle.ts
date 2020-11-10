@@ -2,25 +2,29 @@ import { ObjectiveProps } from "../types";
 import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
 
-interface CycleProps {
-  startAt: string;
-  endAt: string;
+export interface CycleProps {
+  startAtString: string;
+  endAtString: string;
   remark: string;
   objectives: ObjectiveProps[];
 }
 
 export class Cycle implements CycleProps {
-  static fromJSONString(str: string) {
-    const cycleProps = JSON.parse(str) as CycleProps;
-
+  static fromJSON(props: CycleProps) {
     return new Cycle({
-      ...cycleProps,
-      objectives: cycleProps.objectives.map(Objective.fromJSONString),
+      ...props,
+      objectives: props.objectives.map(Objective.fromJSONString),
     });
   }
 
-  startAt: string;
-  endAt: string;
+  static fromJSONString(str: string) {
+    const cycleProps = JSON.parse(str) as CycleProps;
+
+    return Cycle.fromJSON(cycleProps);
+  }
+
+  startAtString: string;
+  endAtString: string;
   remark: string;
   objectives: Objective[] = [];
 
@@ -32,7 +36,7 @@ export class Cycle implements CycleProps {
     return this.objectives.map((el) => el.keyResults).flat();
   }
 
-  constructor(props?: Partial<Cycle>) {
+  constructor(props?: Partial<CycleProps>) {
     Object.assign(this, props);
   }
 
@@ -44,8 +48,8 @@ export class Cycle implements CycleProps {
 
   toJSON(): CycleProps {
     return {
-      startAt: this.startAt,
-      endAt: this.endAt,
+      startAtString: this.startAtString,
+      endAtString: this.endAtString,
       remark: this.remark,
       objectives: this.objectives.map((el) => el.toJSON()),
     };

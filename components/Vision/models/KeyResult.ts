@@ -38,7 +38,7 @@ export class KeyResult implements KeyResultProps {
     return `${this.score * 100}%`;
   }
 
-  constructor(props?: Partial<KeyResult>) {
+  constructor(props?: Partial<KeyResultProps>) {
     Object.assign(this, props);
   }
 
@@ -68,7 +68,7 @@ export class KeyResult implements KeyResultProps {
       weight: this.weight,
       total: this.total,
       remark: this.remark,
-      current: this.current,
+      records: [],
     };
   }
 }

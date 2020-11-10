@@ -11,8 +11,25 @@ import { OKR } from "../models/OKR";
 const initialObjective = new Objective();
 
 function useVision(props: {}) {
-  const okr = React.useRef(new OKR());
-  const curCycle = React.useRef<Cycle>();
+  const okr = React.useRef(
+    (() => {
+      if (typeof window !== "undefined") {
+        const jsonString = localStorage.getItem(OKR.LOCAL_STORAGE_KEY);
+
+        if (jsonString) {
+          return OKR.fromJSONString(jsonString);
+        }
+      }
+
+      return new OKR();
+    })()
+  );
+
+  const curCycle = React.useRef<Cycle | undefined>(
+    okr.current.cycles.find((el) => el.id === okr.current.curCycleId)
+  );
+
+  console.log(curCycle);
 
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
@@ -24,6 +41,9 @@ function useVision(props: {}) {
   const curKeyResultDetail = React.useRef<KeyResult>();
 
   function forceRender() {
+    okr.current.curCycleId = curCycle.current?.id;
+    okr.current.sync();
+
     setTimeout(() => setKey((s) => s + 1), 0);
   }
 

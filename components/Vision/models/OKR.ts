@@ -3,9 +3,12 @@ import { Cycle, CycleProps } from "./Cycle";
 interface OKRProps {
   id: string;
   cycles: CycleProps[];
+  curCycleId?: string;
 }
 
 export class OKR implements OKRProps {
+  static LOCAL_STORAGE_KEY = "local";
+
   static fromJSONString(str: string) {
     const okrProps = JSON.parse(str) as OKRProps;
 
@@ -17,6 +20,7 @@ export class OKR implements OKRProps {
 
   id = Math.random().toString().slice(-6);
   cycles: Cycle[] = [];
+  curCycleId?: string;
 
   get renderingList() {
     return this.cycles.map((el) => ({
@@ -33,11 +37,18 @@ export class OKR implements OKRProps {
   toJSON(): OKRProps {
     return {
       id: this.id,
+      curCycleId: this.curCycleId,
       cycles: this.cycles.map((el) => el.toJSON()),
     };
   }
 
-  toJSONString(indent = 2) {
+  toJSONString(indent: number | undefined = 2) {
     return JSON.stringify(this.toJSON(), null, indent);
+  }
+
+  sync() {
+    const jsonString = this.toJSONString(undefined);
+
+    localStorage.setItem(OKR.LOCAL_STORAGE_KEY, jsonString);
   }
 }

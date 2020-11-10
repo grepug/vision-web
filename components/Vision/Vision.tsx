@@ -19,6 +19,17 @@ export function Vision() {
 
 function OKR() {
   const ctx = useContext()!;
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsClient(true);
+    }
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   if (!ctx.curCycle.current) {
     return (

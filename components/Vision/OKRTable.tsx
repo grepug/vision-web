@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { KeyResult } from "./models/KeyResult";
 import { getEditableCell } from "./EditableCell";
 import { EditableRow } from "./EditableRow";
-import { useContext } from "./Context";
+import { useContext } from "./Contexts/CycleContext";
 
 export function OKRTable() {
   const ctx = useContext()!;

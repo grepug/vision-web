@@ -1,6 +1,7 @@
 import { Cycle, CycleProps } from "./Cycle";
 
 interface OKRProps {
+  id: string;
   cycles: CycleProps[];
 }
 
@@ -14,6 +15,7 @@ export class OKR implements OKRProps {
     });
   }
 
+  id = Math.random().toString().slice(-6);
   cycles: Cycle[] = [];
 
   constructor(props?: Partial<OKRProps>) {
@@ -22,6 +24,7 @@ export class OKR implements OKRProps {
 
   toJSON(): OKRProps {
     return {
+      id: this.id,
       cycles: this.cycles.map((el) => el.toJSON()),
     };
   }

@@ -1,5 +1,5 @@
 import { Modal, Typography } from "antd";
-import { useContext } from "../Context";
+import { useContext } from "../Contexts/CycleContext";
 
 export function CycleListModal() {
   const ctx = useContext()!;

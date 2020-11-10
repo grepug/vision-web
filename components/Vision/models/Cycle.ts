@@ -3,6 +3,7 @@ import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
 
 export interface CycleProps {
+  id: string;
   title: string;
   startAtString: string;
   endAtString: string;
@@ -24,6 +25,7 @@ export class Cycle implements CycleProps {
     return Cycle.fromJSON(cycleProps);
   }
 
+  id = Math.random().toString().slice(-6);
   title = "My Cycle";
   startAtString: string;
   endAtString: string;
@@ -50,6 +52,7 @@ export class Cycle implements CycleProps {
 
   toJSON(): CycleProps {
     return {
+      id: this.id,
       title: this.title,
       startAtString: this.startAtString,
       endAtString: this.endAtString,

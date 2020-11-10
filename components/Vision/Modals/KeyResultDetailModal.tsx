@@ -1,6 +1,6 @@
 import { Divider, Input, Modal, Typography, Form } from "antd";
 import FormItem from "antd/lib/form/FormItem";
-import { useContext } from "../Context";
+import { useContext } from "../Contexts/CycleContext";
 
 export function KeyResultsDetailModal() {
   const ctx = useContext()!;

@@ -1,16 +1,18 @@
 import * as React from "react";
-import { createMyContext } from "../../lib/createMyContext";
-import { KeyResult } from "./models/KeyResult";
-import { Objective } from "./models/Objective";
+import { createMyContext } from "../../../lib/createMyContext";
+import { KeyResult } from "../models/KeyResult";
+import { Objective } from "../models/Objective";
 import type { ColumnsType } from "antd/lib/table/interface";
-import { getColumnConfig } from "./columnConfig";
+import { getColumnConfig } from "../columnConfig";
 import { message } from "antd";
-import { Cycle } from "./models/Cycle";
+import { Cycle } from "../models/Cycle";
+import { OKR } from "../models/OKR";
 
 const initialObjective = new Objective();
 
-function useVision(_: {}) {
-  const [cycle, setCycle] = React.useState(new Cycle());
+function useVision(props: {}) {
+  const [okr, setOKR] = React.useState(new OKR());
+  const [cycle, setCycle] = React.useState<Cycle>(new Cycle());
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);

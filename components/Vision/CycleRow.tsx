@@ -9,29 +9,13 @@ const { RangePicker } = DatePicker;
 
 export function CycleRow() {
   const ctx = useContext()!;
-  const [form] = Form.useForm();
-
-  function handleSave([start, end]: moment.Moment[]) {
-    ctx.mutateCycle((cycle) => {
-      cycle.startAtString = start.toISOString();
-      cycle.endAtString = end.toISOString();
-
-      return cycle;
-    });
-  }
 
   return (
     <div>
       <CycleListModal />
-      <Typography.Title level={3}>My Cycle</Typography.Title>
-      <VerticalSpace />
       <Row justify="space-between">
         <Col>
-          <Form form={form}>
-            <Form.Item label="Range">
-              <RangePicker onChange={handleSave as any} />
-            </Form.Item>
-          </Form>
+          <Typography.Title level={3}>My Cycle</Typography.Title>
         </Col>
         <Col>
           <Space>
@@ -47,6 +31,7 @@ export function CycleRow() {
           </Space>
         </Col>
       </Row>
+      <VerticalSpace />
     </div>
   );
 }

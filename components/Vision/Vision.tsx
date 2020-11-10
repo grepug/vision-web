@@ -6,6 +6,7 @@ import { Provider, useContext } from "./Contexts/CycleContext";
 import { OKRTableActionRow } from "./OKRTableActionRow";
 import { VerticalSpace } from "./VerticalSpace";
 import { Button, Col, Row } from "antd";
+import { RecordModal } from "./Modals/RecordModal";
 
 export function Vision() {
   return (
@@ -45,12 +46,13 @@ function OKR() {
 
   return (
     <div>
-      <KeyResultsDetailModal key={ctx?.curKeyResultDetail.current?.id} />
+      <KeyResultsDetailModal key={ctx?.curKeyResult.current?.id} />
       <CycleRow />
       <VerticalSpace />
       <OKRTableActionRow />
       <VerticalSpace />
       <OKRTable />
+      <RecordModal />
     </div>
   );
 }

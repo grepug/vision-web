@@ -1,7 +1,7 @@
-import { Button, List, Popconfirm, Progress, Space, Typography } from "antd";
+import { Button, List, Progress, Space, Typography } from "antd";
 import { useContext } from "./Contexts/CycleContext";
-import moment from "moment";
-import { DeleteOutlined } from "@ant-design/icons";
+import { formatDate } from "./utils";
+import { DeleteButton } from "./DeleteButton";
 
 export function CycleList() {
   const ctx = useContext()!;
@@ -34,12 +34,7 @@ export function CycleList() {
                       ? "Current"
                       : "Switch"}
                   </Button>
-                  <Popconfirm
-                    title="Sure to delete?"
-                    onConfirm={() => ctx.deleteCycle(item.id, i)}
-                  >
-                    <Button icon={<DeleteOutlined />} type="link" />
-                  </Popconfirm>
+                  <DeleteButton onConfirm={() => ctx.deleteCycle(item.id, i)} />
                 </Space>
               </Space>
             }
@@ -72,8 +67,4 @@ export function CycleList() {
       />
     </div>
   );
-}
-
-function formatDate(date: moment.Moment) {
-  return date.format("YYYY/MM/DD");
 }

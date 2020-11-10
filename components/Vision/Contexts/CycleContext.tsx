@@ -22,11 +22,11 @@ function useVision(props: {}) {
       }
 
       return new OKR();
-    })()
+    })(),
   );
 
   const curCycle = React.useRef<Cycle | undefined>(
-    okr.current.cycles.find((el) => el.id === okr.current.curCycleId)
+    okr.current.cycles.find((el) => el.id === okr.current.curCycleId),
   );
 
   console.log(curCycle);
@@ -35,10 +35,11 @@ function useVision(props: {}) {
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);
   const [keyResultModalVisible, setKeyResultModalVisible] = React.useState(
-    false
+    false,
   );
   const [cyclesModalVisible, setCyclesModalVisible] = React.useState(false);
-  const curKeyResultDetail = React.useRef<KeyResult>();
+  const [recordsModalVisible, setRecordsModalVisible] = React.useState(false);
+  const curKeyResult = React.useRef<KeyResult>();
 
   function forceRender() {
     okr.current.curCycleId = curCycle.current?.id;
@@ -84,9 +85,16 @@ function useVision(props: {}) {
 
   const columns: ColumnsType = getColumnConfig({
     handleDelete,
-    onKeyResultEditClick: (kr) => {
-      curKeyResultDetail.current = kr;
-      setKeyResultModalVisible(true);
+    onKeyResultEditClick: (kr, type) => {
+      curKeyResult.current = kr;
+
+      if (type === "remark") {
+        setKeyResultModalVisible(true);
+      }
+
+      if (type === "records") {
+        setRecordsModalVisible(true);
+      }
     },
   }).map((col) => {
     if (!col.editable) {
@@ -108,7 +116,12 @@ function useVision(props: {}) {
   function handleDelete(keyResult: KeyResult) {
     mutateCycle((cycle) => {
       const index = cycle.findIndexByKeyResult(keyResult);
-      cycle.objectives[index].deleteKeyResult(keyResult);
+      const objective = cycle.objectives[index];
+      objective.deleteKeyResult(keyResult);
+
+      if (objective.keyResults.length === 0) {
+        cycle.deleteObjective(objective);
+      }
 
       return cycle;
     });
@@ -167,7 +180,9 @@ function useVision(props: {}) {
     setKeyResultModalVisible,
     cyclesModalVisible,
     setCyclesModalVisible,
-    curKeyResultDetail,
+    recordsModalVisible,
+    setRecordsModalVisible,
+    curKeyResult,
     handleAddKR,
     createCycle,
     okr,

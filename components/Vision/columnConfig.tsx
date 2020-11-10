@@ -1,11 +1,15 @@
 import { KeyResult } from "./models/KeyResult";
 import { Space, Button, Popconfirm, Popover } from "antd";
-import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  MoreOutlined,
+  ProfileOutlined,
+} from "@ant-design/icons";
 import { WrapParagraph } from "./WrapParagraph";
 
 export const getColumnConfig = (props: {
   handleDelete: (kr: KeyResult) => void;
-  onKeyResultEditClick: (kr: KeyResult) => void;
+  onKeyResultEditClick: (kr: KeyResult, type: "remark" | "records") => void;
 }) => [
   {
     title: "Objectives",
@@ -18,7 +22,7 @@ export const getColumnConfig = (props: {
       };
 
       const isFirstKeyResultOfObjective = row.isEqual(
-        row.objective.keyResults[0]
+        row.objective.keyResults[0],
       );
       const krLength = row.objective.keyResults.length;
       obj.props.rowSpan = isFirstKeyResultOfObjective ? krLength : 0;
@@ -30,6 +34,7 @@ export const getColumnConfig = (props: {
     title: "Objective Weight",
     dataIndex: ["objective", "weight"],
     editable: true,
+    width: "5%",
     render: (value: string, row: KeyResult) => {
       const obj: any = {
         children: `${value}%`,
@@ -37,7 +42,7 @@ export const getColumnConfig = (props: {
       };
 
       const isFirstKeyResultOfObjective = row.isEqual(
-        row.objective.keyResults[0]
+        row.objective.keyResults[0],
       );
       const krLength = row.objective.keyResults.length;
       obj.props.rowSpan = isFirstKeyResultOfObjective ? krLength : 0;
@@ -50,7 +55,7 @@ export const getColumnConfig = (props: {
     dataIndex: "title",
     key: "id",
     editable: true,
-    width: "30%",
+    width: "25%",
     render: (text: string, record: KeyResult) => {
       return (
         <Popover
@@ -82,11 +87,10 @@ export const getColumnConfig = (props: {
   {
     title: "Current Quantity",
     dataIndex: "current",
-    editable: true,
   },
   {
     title: "Score",
-    dataIndex: "score",
+    dataIndex: "scoreString",
   },
   {
     title: "Operation",
@@ -94,9 +98,14 @@ export const getColumnConfig = (props: {
     render: (_, record: KeyResult, index: number) => (
       <Space>
         <Button
+          icon={<ProfileOutlined />}
+          type="text"
+          onClick={() => props.onKeyResultEditClick(record, "records")}
+        />
+        <Button
           icon={<MoreOutlined />}
           type="text"
-          onClick={() => props.onKeyResultEditClick(record)}
+          onClick={() => props.onKeyResultEditClick(record, "remark")}
         />
         <Popconfirm
           title="Sure to delete?"

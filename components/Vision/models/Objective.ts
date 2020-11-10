@@ -4,7 +4,7 @@ import { ObjectiveProps } from "../types";
 let count = 0;
 
 export class Objective implements ObjectiveProps {
-  static fromJSONString(props: ObjectiveProps) {
+  static fromJSON(props: ObjectiveProps) {
     const objective = new Objective(props);
 
     objective.keyResults = props.keyResults.map((el) => {

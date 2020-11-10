@@ -16,7 +16,7 @@ export class Cycle implements CycleProps {
   static fromJSON(props: CycleProps) {
     return new Cycle({
       ...props,
-      objectives: props.objectives.map(Objective.fromJSONString),
+      objectives: props.objectives.map(Objective.fromJSON),
     });
   }
 
@@ -41,8 +41,20 @@ export class Cycle implements CycleProps {
     return moment(this.endAtString);
   }
 
+  get totaldays() {
+    return this.endAt.diff(this.startAt, "days");
+  }
+
+  get daysLeft() {
+    return this.endAt.diff(moment(), "days");
+  }
+
   get score() {
     return this.objectives.reduce((acc, el) => acc + el.score, 0);
+  }
+
+  get scoreString() {
+    return `${(this.score * 100).toFixed(2)}%`;
   }
 
   get renderingKeyResults() {
@@ -59,8 +71,16 @@ export class Cycle implements CycleProps {
 
   findIndexByKeyResult(keyResult: KeyResult) {
     return this.objectives.findIndex((el) =>
-      el.keyResults.some((el) => el.isEqual(keyResult))
+      el.keyResults.some((el) => el.isEqual(keyResult)),
     );
+  }
+
+  deleteObjective(obj: Objective) {
+    const index = this.objectives.findIndex((el) => el.isEqual(obj));
+
+    if (index > -1) {
+      this.objectives.splice(index, 1);
+    }
   }
 
   toJSON(): CycleProps {

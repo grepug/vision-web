@@ -1,3 +1,5 @@
+import type moment from "moment";
+
 export function uniq<T>(arr: T[], keyName: keyof T) {
   let newArr: T[] = [];
 
@@ -27,4 +29,8 @@ export function findLastIndex<T>(arr: T[], predicate: (obj: T) => boolean) {
   }
 
   return index;
+}
+
+export function formatDate(date: moment.Moment) {
+  return date.format("YYYY/MM/DD");
 }

@@ -11,11 +11,16 @@ export interface KeyResultProps {
   title: string;
   weight: number;
   total: number;
+  unit: string;
   remark: string;
   records: RecordProps[];
 }
 
-export interface RecordProps {}
+export interface RecordProps {
+  recordDateString: string;
+  quantity: number;
+  remark: string;
+}
 
 type NonFunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K;

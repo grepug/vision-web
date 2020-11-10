@@ -7,8 +7,11 @@ export class KeyResult implements KeyResultProps {
     return Array.from(Array(count)).map((el) => new KeyResult());
   }
 
-  static fromJSON(item: KeyResultProps) {
-    return new KeyResult(item);
+  static fromJSON(props: KeyResultProps) {
+    const keyResult = new KeyResult(props);
+    keyResult.records = props.records.map(Record.fromJSON);
+
+    return keyResult;
   }
 
   id = Math.random().toString().slice(-6);
@@ -23,7 +26,7 @@ export class KeyResult implements KeyResultProps {
   get current() {
     return this.records.reduce(
       (current, record) => current + record.quantity,
-      0
+      0,
     );
   }
 
@@ -35,7 +38,7 @@ export class KeyResult implements KeyResultProps {
   }
 
   get scoreString() {
-    return `${this.score * 100}%`;
+    return `${(this.score * 100).toFixed(2)}%`;
   }
 
   constructor(props?: Partial<KeyResultProps>) {
@@ -66,9 +69,10 @@ export class KeyResult implements KeyResultProps {
       id: this.id,
       title: this.title,
       weight: this.weight,
+      unit: this.unit,
       total: this.total,
       remark: this.remark,
-      records: [],
+      records: this.records.map((el) => el.toJSON()),
     };
   }
 }

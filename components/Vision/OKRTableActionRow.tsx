@@ -1,16 +1,43 @@
 import * as React from "react";
-import { Button, Dropdown, Space, Row, Col, Menu } from "antd";
+import {
+  Button,
+  Dropdown,
+  Space,
+  Row,
+  Col,
+  Menu,
+  Progress,
+  Form,
+  DatePicker,
+} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useContext } from "./Contexts/CycleContext";
 
+const { RangePicker } = DatePicker;
+
 export function OKRTableActionRow() {
   const ctx = useContext()!;
+
+  function handleSave(value: moment.Moment[] | undefined) {
+    ctx.mutateCycle((cycle) => {
+      if (value) {
+        const [start, end] = value;
+
+        cycle.startAtString = start.toISOString();
+        cycle.endAtString = end.toISOString();
+      }
+
+      return cycle;
+    });
+  }
 
   const cycle = ctx.curCycle.current;
 
   if (!cycle) {
     return null;
   }
+
+  const range = [cycle.startAt, cycle.endAt];
 
   const addKeyResultMenu = (
     <Menu>
@@ -25,7 +52,7 @@ export function OKRTableActionRow() {
   );
 
   return (
-    <Row justify="space-between">
+    <Row justify="space-between" align="bottom">
       <Col>
         <Space style={{ width: "100%" }}>
           <Button
@@ -40,9 +67,20 @@ export function OKRTableActionRow() {
               <Button icon={<PlusOutlined />}>Add Key Result</Button>
             </Dropdown>
           )}
+          <RangePicker value={range as any} onChange={handleSave as any} />
+          <div>
+            Days Left: {cycle.daysLeft} / {cycle.totaldays}
+          </div>
         </Space>
       </Col>
-      <Col></Col>
+      <Col>
+        <Progress
+          type="circle"
+          percent={cycle.score * 100}
+          width={100}
+          trailColor="#ccc"
+        />
+      </Col>
     </Row>
   );
 }

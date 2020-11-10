@@ -6,7 +6,7 @@ export function KeyResultsDetailModal() {
   const ctx = useContext()!;
   const [form] = Form.useForm();
 
-  const keyResult = ctx.curKeyResultDetail.current;
+  const keyResult = ctx.curKeyResult.current;
 
   function handleCancel() {
     ctx.setKeyResultModalVisible(false);

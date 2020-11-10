@@ -26,7 +26,14 @@ export function CycleList() {
                   size="small"
                 />
                 <Space>
-                  <Button onClick={() => handleSwitchCycle(i)}>Switch</Button>
+                  <Button
+                    onClick={() => handleSwitchCycle(i)}
+                    disabled={item.id === ctx.curCycle.current?.id}
+                  >
+                    {item.id === ctx.curCycle.current?.id
+                      ? "Current"
+                      : "Switch"}
+                  </Button>
                   <Popconfirm
                     title="Sure to delete?"
                     onConfirm={() => ctx.deleteCycle(item.id, i)}
@@ -41,17 +48,21 @@ export function CycleList() {
               title={
                 <div>
                   <Typography.Title level={3}>{item.title}</Typography.Title>
-                  <Space>
-                    <Typography.Text>
+                  <Space direction="vertical">
+                    <div>
                       from: {formatDate(item.startAt)} to:{" "}
                       {formatDate(item.endAt)}
-                    </Typography.Text>
-                    <Typography.Text>
-                      Objectives: {item.objectives.length}
-                    </Typography.Text>
-                    <Typography.Text>
-                      KeyResults: {item.keyResultCount}
-                    </Typography.Text>
+                    </div>
+                    <div>
+                      <Space>
+                        <Typography.Text>
+                          Objectives: {item.objectives.length}
+                        </Typography.Text>
+                        <Typography.Text>
+                          KeyResults: {item.keyResultCount}
+                        </Typography.Text>
+                      </Space>
+                    </div>
                   </Space>
                 </div>
               }

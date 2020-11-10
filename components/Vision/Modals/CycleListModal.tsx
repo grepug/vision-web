@@ -15,6 +15,7 @@ export function CycleListModal() {
       visible={ctx.cyclesModalVisible}
       title="Cycle List"
       onCancel={handleCancel}
+      footer={null}
     >
       <Row justify="space-between">
         <Col>

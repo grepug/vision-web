@@ -1,5 +1,5 @@
 import { KeyResult } from "./KeyResult";
-import { ObjectiveProps } from "./types";
+import { ObjectiveProps } from "../types";
 
 let count = 0;
 

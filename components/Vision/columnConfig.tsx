@@ -1,6 +1,6 @@
-import { KeyResult } from "./KeyResult";
+import { KeyResult } from "./models/KeyResult";
 import { Space, Button, Popconfirm } from "antd";
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
 
 export const getColumnConfig = (props: {
   keyResults: KeyResult[];
@@ -81,7 +81,7 @@ export const getColumnConfig = (props: {
     render: (_, record: KeyResult) =>
       props.keyResults.length >= 1 ? (
         <Space>
-          <Button icon={<PlusOutlined />} type="text" />
+          <Button icon={<MoreOutlined />} type="text" />
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => {

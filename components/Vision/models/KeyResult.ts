@@ -1,4 +1,4 @@
-import { KeyResultProps, Record } from "./types";
+import { KeyResultProps, Record } from "../types";
 import { Objective } from "./Objective";
 
 export class KeyResult implements KeyResultProps {

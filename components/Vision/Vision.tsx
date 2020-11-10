@@ -9,22 +9,25 @@ import {
   Space,
   Row,
   Col,
+  Typography,
 } from "antd";
-import { Objective } from "./Objective";
-import { KeyResult } from "./KeyResult";
+import { Objective } from "./models/Objective";
+import { KeyResult } from "./models/KeyResult";
 import type { ColumnsType } from "antd/lib/table/interface";
-import { ExportModal } from "./ExportModal";
-import { ImportModal } from "./ImportModal";
+import { ExportModal } from "./Modals/ExportModal";
+import { ImportModal } from "./Modals/ImportModal";
 import {
   PlusCircleOutlined,
   UploadOutlined,
   PlusOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
-import { EditableCell } from "./EditableCell";
+import { getEditableCell } from "./EditableCell";
 import { EditableRow } from "./EditableRow";
 import { findLastIndex, uniq } from "./utils";
 import { getColumnConfig } from "./columnConfig";
+import { CycleRow } from "./CycleRow";
+import { KeyResultsDetailModal } from "./Modals/KeyResultDetailModal";
 
 const initialObjective = new Objective();
 
@@ -152,6 +155,9 @@ export function Vision() {
 
   return (
     <div style={{ paddingBottom: 200 }}>
+      <CycleRow />
+      <Divider />
+      <Typography.Title level={3}>OKR</Typography.Title>
       <ExportModal
         visible={exportModalVisible}
         jsonValue={Objective.arrToJSON(objectives)}
@@ -194,7 +200,7 @@ export function Vision() {
         components={{
           body: {
             row: EditableRow,
-            cell: EditableCell,
+            cell: getEditableCell({ forceRender }),
           },
         }}
         columns={columns}

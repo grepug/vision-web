@@ -13,7 +13,7 @@ export function ImportModal() {
   }
 
   function handleCancel() {
-    ctx.curKeyResultDetail.current = undefined;
+    ctx.curKeyResult.current = undefined;
     ctx.setImportModalVisible(false);
   }
 

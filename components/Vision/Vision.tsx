@@ -16,7 +16,7 @@ export function Vision() {
         <ImportModal />
         <Consumer>
           {(ctx) => (
-            <KeyResultsDetailModal key={ctx?.curKeyResultDetailIndex.current} />
+            <KeyResultsDetailModal key={ctx?.curKeyResultDetail.current?.id} />
           )}
         </Consumer>
         <CycleRow />

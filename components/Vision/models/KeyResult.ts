@@ -7,6 +7,10 @@ export class KeyResult implements KeyResultProps {
     return Array.from(Array(count)).map((el) => new KeyResult());
   }
 
+  static fromJSON(item: KeyResultProps) {
+    return new KeyResult(item);
+  }
+
   id = Math.random().toString().slice(-6);
   title = "New Key Result";
   weight = 0;
@@ -66,11 +70,5 @@ export class KeyResult implements KeyResultProps {
       remark: this.remark,
       current: this.current,
     };
-  }
-
-  fromJSON(item: KeyResultProps) {
-    Object.assign(this, item);
-
-    return this;
   }
 }

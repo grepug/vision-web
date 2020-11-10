@@ -3,31 +3,36 @@ import { createMyContext } from "../../lib/createMyContext";
 import { KeyResult } from "./models/KeyResult";
 import { Objective } from "./models/Objective";
 import type { ColumnsType } from "antd/lib/table/interface";
-import { findLastIndex, uniq } from "./utils";
 import { getColumnConfig } from "./columnConfig";
 import { message } from "antd";
+import { Cycle } from "./models/Cycle";
 
 const initialObjective = new Objective();
 
-function useVision(props: {}) {
-  const [keyResults, setKeyResults] = React.useState<KeyResult[]>([]);
+function useVision(_: {}) {
+  const [cycle, setCycle] = React.useState(new Cycle());
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);
   const [keyResultModalVisible, setKeyResultModalVisible] = React.useState(
     false
   );
-  const curKeyResultDetailIndex = React.useRef(-1);
+  const curKeyResultDetail = React.useRef<KeyResult>();
 
   function forceRender() {
     setTimeout(() => setKey((s) => s + 1), 0);
   }
 
+  function mutateCycle(cycle: Parameters<typeof setCycle>[0]) {
+    setCycle(cycle);
+    forceRender();
+  }
+
   const columns: ColumnsType = getColumnConfig({
+    cycle,
     handleDelete,
-    keyResults,
-    onKeyResultEditClick: (index) => {
-      curKeyResultDetailIndex.current = index;
+    onKeyResultEditClick: (kr) => {
+      curKeyResultDetail.current = kr;
       setKeyResultModalVisible(true);
     },
   }).map((col) => {
@@ -48,83 +53,54 @@ function useVision(props: {}) {
   });
 
   function handleDelete(keyResult: KeyResult) {
-    setKeyResults((krs) => {
-      const index = krs.findIndex((el) => el.isEqual(keyResult));
+    mutateCycle((cycle) => {
+      const index = cycle.findIndexByKeyResult(keyResult);
+      cycle.objectives[index].deleteKeyResult(keyResult);
 
-      krs[index].objective.keyResults = krs[index].objective.keyResults.filter(
-        (el) => !el.isEqual(krs[index])
-      );
-
-      krs.splice(index, 1);
-
-      return krs;
+      return cycle;
     });
-
-    forceRender();
   }
 
   function handleEdit(keyResult: KeyResult) {
-    setKeyResults((krs) => {
-      const index = krs.findIndex((el) => el.isEqual(keyResult));
-      krs[index].overrideProps(keyResult);
+    mutateCycle((cycle) => {
+      const index = cycle.findIndexByKeyResult(keyResult);
+      cycle.objectives[index].editKeyResult(keyResult);
 
-      return krs;
+      return cycle;
     });
-
-    forceRender();
   }
 
   function handleAddKR(objective?: Objective) {
     const isExistedObjective = objective != null;
 
     if (!isExistedObjective) {
-      objective = objectives.length ? new Objective() : initialObjective;
+      objective = cycle.objectives.length ? new Objective() : initialObjective;
     }
 
-    const keyResult = new KeyResult();
-    keyResult.objective = objective!;
-    objective!.linkKeyResults(keyResult);
+    mutateCycle((cycle) => {
+      const keyResult = new KeyResult();
+      keyResult.objective = objective!;
+      objective!.linkKeyResults(keyResult);
 
-    setKeyResults((krs) => {
-      let insertIndex = krs.length;
-
-      if (isExistedObjective) {
-        insertIndex =
-          findLastIndex(krs, (el) => el.objective.isEqual(objective)) + 1;
+      if (!isExistedObjective) {
+        cycle.objectives.push(objective!);
       }
 
-      krs.splice(insertIndex, 0, keyResult);
-
-      return krs;
+      return cycle;
     });
-
-    forceRender();
   }
 
-  const objectives = uniq(
-    keyResults.map((el) => el.objective),
-    "id"
-  );
-
-  function handleExportChange(value: string) {
-    const objectives = Objective.arrFromJSON(value);
-
-    if (objectives) {
-      const keyResults = Objective.arrToKeyResultArr(objectives);
-
-      setKeyResults(keyResults);
-
-      forceRender();
-
-      return;
+  function handleImportChange(value: string) {
+    try {
+      mutateCycle(Cycle.fromJSONString(value));
+    } catch {
+      message.error("Your JSON string is invalid!");
     }
-
-    message.error("Your JSON string is invalid!");
   }
 
   return {
-    keyResults,
-    setKeyResults,
+    cycle,
+    mutateCycle,
     forceRender,
     columns,
     key,
@@ -132,11 +108,10 @@ function useVision(props: {}) {
     setExportModalVisible,
     importModalVisible,
     setImportModalVisible,
-    handleExportChange,
-    objectives,
+    handleImportChange,
     keyResultModalVisible,
     setKeyResultModalVisible,
-    curKeyResultDetailIndex,
+    curKeyResultDetail,
     handleAddKR,
   };
 }

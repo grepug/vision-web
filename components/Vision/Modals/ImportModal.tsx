@@ -8,12 +8,12 @@ export function ImportModal() {
   const [value, setValue] = React.useState("");
 
   function handleOK() {
-    ctx.handleExportChange(value);
+    ctx.handleImportChange(value);
     handleCancel();
   }
 
   function handleCancel() {
-    ctx.curKeyResultDetailIndex.current = -1;
+    ctx.curKeyResultDetail.current = undefined;
     ctx.setImportModalVisible(false);
   }
 

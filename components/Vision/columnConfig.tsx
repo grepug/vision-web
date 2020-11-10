@@ -2,11 +2,12 @@ import { KeyResult } from "./models/KeyResult";
 import { Space, Button, Popconfirm, Popover } from "antd";
 import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
 import { WrapParagraph } from "./WrapParagraph";
+import { Cycle } from "./models/Cycle";
 
 export const getColumnConfig = (props: {
-  keyResults: KeyResult[];
+  cycle: Cycle;
   handleDelete: (kr: KeyResult) => void;
-  onKeyResultEditClick: (index: number) => void;
+  onKeyResultEditClick: (kr: KeyResult) => void;
 }) => [
   {
     title: "Objectives",
@@ -92,23 +93,22 @@ export const getColumnConfig = (props: {
   {
     title: "Operation",
     dataIndex: "operation",
-    render: (_, record: KeyResult, index: number) =>
-      props.keyResults.length >= 1 ? (
-        <Space>
-          <Button
-            icon={<MoreOutlined />}
-            type="text"
-            onClick={() => props.onKeyResultEditClick(index)}
-          />
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => {
-              props.handleDelete(record);
-            }}
-          >
-            <Button icon={<DeleteOutlined />} type="text" />
-          </Popconfirm>
-        </Space>
-      ) : null,
+    render: (_, record: KeyResult, index: number) => (
+      <Space>
+        <Button
+          icon={<MoreOutlined />}
+          type="text"
+          onClick={() => props.onKeyResultEditClick(record)}
+        />
+        <Popconfirm
+          title="Sure to delete?"
+          onConfirm={() => {
+            props.handleDelete(record);
+          }}
+        >
+          <Button icon={<DeleteOutlined />} type="text" />
+        </Popconfirm>
+      </Space>
+    ),
   },
 ];

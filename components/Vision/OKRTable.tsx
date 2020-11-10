@@ -11,7 +11,7 @@ export function OKRTable() {
   return (
     <Table
       key={ctx.key}
-      dataSource={ctx.keyResults}
+      dataSource={ctx.cycle.renderingKeyResults}
       components={{
         body: {
           row: EditableRow,

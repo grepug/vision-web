@@ -13,7 +13,7 @@ export function OKRTableActionRow() {
   const addKeyResultMenu = (
     <Menu>
       <Menu.ItemGroup title="Objectives">
-        {ctx.objectives.map((el) => (
+        {ctx.cycle.objectives.map((el) => (
           <Menu.Item key={el.id} onClick={() => ctx.handleAddKR(el)}>
             {el.title}
           </Menu.Item>
@@ -33,7 +33,7 @@ export function OKRTableActionRow() {
           >
             Add Objective
           </Button>
-          {!!ctx.keyResults.length && (
+          {!!ctx.cycle.renderingKeyResults.length && (
             <Dropdown overlay={addKeyResultMenu}>
               <Button icon={<PlusOutlined />}>Add Key Result</Button>
             </Dropdown>

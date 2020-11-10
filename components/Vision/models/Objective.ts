@@ -4,20 +4,19 @@ import { ObjectiveProps } from "../types";
 let count = 0;
 
 export class Objective implements ObjectiveProps {
-  static arrToJSON(items: Objective[]) {
-    return JSON.stringify(
-      items.map((el) => el.toJSON()),
-      null,
-      2
-    );
-  }
+  static fromJSONString(props: ObjectiveProps) {
+    const objective = new Objective(props);
 
-  static arrFromJSON(jsonString: string): Objective[] | null {
-    try {
-      return JSON.parse(jsonString).map((el) => new Objective().fromJSON(el));
-    } catch (e) {
-      return null;
-    }
+    objective.keyResults = props.keyResults.map((el) => {
+      const keyResult = KeyResult.fromJSON(el);
+      keyResult.objective = objective;
+
+      objective.keyResults.push(keyResult);
+
+      return keyResult;
+    });
+
+    return objective;
   }
 
   static arrToKeyResultArr(items: Objective[]) {
@@ -44,7 +43,7 @@ export class Objective implements ObjectiveProps {
     return this.keyResults.reduce((acc, el) => acc + el.score, 0);
   }
 
-  constructor(props?: Partial<Objective>) {
+  constructor(props?: Partial<ObjectiveProps>) {
     Object.assign(this, props);
   }
 
@@ -66,6 +65,19 @@ export class Objective implements ObjectiveProps {
     }
   }
 
+  deleteKeyResult(kr: KeyResult) {
+    const index = this.keyResults.findIndex((el) => el.isEqual(kr));
+
+    if (index > -1) {
+      this.keyResults.splice(index, 1);
+    }
+  }
+
+  editKeyResult(kr: KeyResult) {
+    const index = this.keyResults.findIndex((el) => el.isEqual(kr));
+    this.keyResults[index].overrideProps(kr);
+  }
+
   toJSON(): ObjectiveProps {
     return {
       id: this.id,
@@ -74,20 +86,5 @@ export class Objective implements ObjectiveProps {
       remark: this.remark,
       keyResults: this.keyResults.map((el) => el.toJSON()),
     };
-  }
-
-  fromJSON(props: ObjectiveProps) {
-    Object.assign(this, props);
-
-    this.keyResults = props.keyResults.map((el) => {
-      const keyResult = new KeyResult().fromJSON(el);
-      keyResult.objective = this;
-
-      this.keyResults.push(keyResult);
-
-      return keyResult;
-    });
-
-    return this;
   }
 }

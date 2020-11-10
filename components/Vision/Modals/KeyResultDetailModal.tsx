@@ -1,17 +1,12 @@
 import { Divider, Input, Modal, Typography, Form } from "antd";
 import FormItem from "antd/lib/form/FormItem";
-import { KeyResult } from "../models/KeyResult";
 import { useContext } from "../Context";
 
 export function KeyResultsDetailModal() {
   const ctx = useContext()!;
   const [form] = Form.useForm();
 
-  const keyResult = ctx.keyResults[ctx.curKeyResultDetailIndex.current] as
-    | KeyResult
-    | undefined;
-
-  console.log(ctx.curKeyResultDetailIndex.current, keyResult?.remark);
+  const keyResult = ctx.curKeyResultDetail.current;
 
   function handleCancel() {
     ctx.setKeyResultModalVisible(false);
@@ -20,10 +15,12 @@ export function KeyResultsDetailModal() {
   async function handleSave() {
     const values = await form.validateFields();
 
-    ctx.setKeyResults((krs) => {
-      krs[ctx.curKeyResultDetailIndex.current].remark = values.remark;
+    ctx.mutateCycle((cycle) => {
+      if (keyResult) {
+        keyResult.remark = values.remark;
+      }
 
-      return krs;
+      return cycle;
     });
 
     ctx.forceRender();

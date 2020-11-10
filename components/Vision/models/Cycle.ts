@@ -3,6 +3,7 @@ import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
 
 export interface CycleProps {
+  title: string;
   startAtString: string;
   endAtString: string;
   remark: string;
@@ -23,6 +24,7 @@ export class Cycle implements CycleProps {
     return Cycle.fromJSON(cycleProps);
   }
 
+  title = "My Cycle";
   startAtString: string;
   endAtString: string;
   remark: string;
@@ -48,6 +50,7 @@ export class Cycle implements CycleProps {
 
   toJSON(): CycleProps {
     return {
+      title: this.title,
       startAtString: this.startAtString,
       endAtString: this.endAtString,
       remark: this.remark,

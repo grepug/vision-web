@@ -1,10 +1,6 @@
 import * as React from "react";
-import { Button, Dropdown, Space, Row, Col, Menu, Switch, Divider } from "antd";
-import {
-  UploadOutlined,
-  PlusOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
+import { Button, Dropdown, Space, Row, Col, Menu } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import { useContext } from "./Context";
 
 export function OKRTableActionRow() {
@@ -41,7 +37,7 @@ export function OKRTableActionRow() {
         </Space>
       </Col>
       <Col>
-        <Space split={<Divider type="vertical" />}>
+        {/* <Space split={<Divider type="vertical" />}>
           <Space>
             <div>Persisted</div>
             <Switch />
@@ -60,7 +56,7 @@ export function OKRTableActionRow() {
               Export
             </Button>
           </Space>
-        </Space>
+        </Space> */}
       </Col>
     </Row>
   );

@@ -17,6 +17,7 @@ function useVision(_: {}) {
   const [keyResultModalVisible, setKeyResultModalVisible] = React.useState(
     false
   );
+  const [cyclesModalVisible, setCyclesModalVisible] = React.useState(false);
   const curKeyResultDetail = React.useRef<KeyResult>();
 
   function forceRender() {
@@ -111,6 +112,8 @@ function useVision(_: {}) {
     handleImportChange,
     keyResultModalVisible,
     setKeyResultModalVisible,
+    cyclesModalVisible,
+    setCyclesModalVisible,
     curKeyResultDetail,
     handleAddKR,
   };

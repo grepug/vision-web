@@ -7,6 +7,7 @@ import { KeyResultsDetailModal } from "./Modals/KeyResultDetailModal";
 import { OKRTable } from "./OKRTable";
 import { Provider, Consumer } from "./Context";
 import { OKRTableActionRow } from "./OKRTableActionRow";
+import { VerticalSpace } from "./VerticalSpace";
 
 export function Vision() {
   return (
@@ -20,8 +21,6 @@ export function Vision() {
           )}
         </Consumer>
         <CycleRow />
-        <Divider />
-        <Typography.Title level={3}>OKR</Typography.Title>
         <VerticalSpace />
         <OKRTableActionRow />
         <VerticalSpace />
@@ -29,8 +28,4 @@ export function Vision() {
       </Provider>
     </div>
   );
-}
-
-function VerticalSpace(props?: { height?: number }) {
-  return <div style={{ width: "100%", height: props?.height ?? 24 }}></div>;
 }

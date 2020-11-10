@@ -1,5 +1,6 @@
-import { Modal, Typography } from "antd";
+import { Button, Col, Divider, Modal, Row, Typography } from "antd";
 import { useContext } from "../Contexts/CycleContext";
+import { CycleList } from "../CycleList";
 
 export function CycleListModal() {
   const ctx = useContext()!;
@@ -15,7 +16,16 @@ export function CycleListModal() {
       title="Cycle List"
       onCancel={handleCancel}
     >
-      <Typography.Title level={2}>My Cycles</Typography.Title>
+      <Row justify="space-between">
+        <Col>
+          <Typography.Title level={2}>My Cycles</Typography.Title>
+        </Col>
+        <Col>
+          <Button onClick={ctx.createCycle}>Add Cycle</Button>
+        </Col>
+      </Row>
+      <Divider />
+      <CycleList />
     </Modal>
   );
 }

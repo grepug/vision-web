@@ -18,6 +18,14 @@ export class OKR implements OKRProps {
   id = Math.random().toString().slice(-6);
   cycles: Cycle[] = [];
 
+  get renderingList() {
+    return this.cycles.map((el) => ({
+      score: el.score,
+      title: el.title,
+      startAt: el.startAtString,
+    }));
+  }
+
   constructor(props?: Partial<OKRProps>) {
     Object.assign(this, props);
   }

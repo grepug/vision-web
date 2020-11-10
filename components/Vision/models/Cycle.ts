@@ -1,6 +1,7 @@
 import { ObjectiveProps } from "../types";
 import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
+import moment from "moment";
 
 export interface CycleProps {
   id: string;
@@ -32,12 +33,24 @@ export class Cycle implements CycleProps {
   remark: string;
   objectives: Objective[] = [];
 
+  get startAt() {
+    return moment(this.startAtString);
+  }
+
+  get endAt() {
+    return moment(this.endAtString);
+  }
+
   get score() {
     return this.objectives.reduce((acc, el) => acc + el.score, 0);
   }
 
   get renderingKeyResults() {
     return this.objectives.map((el) => el.keyResults).flat();
+  }
+
+  get keyResultCount() {
+    return this.objectives.reduce((acc, el) => acc + el.keyResults.length, 0);
   }
 
   constructor(props?: Partial<CycleProps>) {

@@ -35,6 +35,22 @@ function useVision(props: {}) {
     forceRender();
   }
 
+  function switchCycle(index: number) {
+    curCycle.current = okr.current.cycles[index];
+
+    forceRender();
+  }
+
+  function deleteCycle(cycleId: string, index: number) {
+    okr.current.cycles.splice(index, 1);
+
+    if (cycleId === curCycle.current?.id) {
+      curCycle.current = okr.current.cycles[0];
+    }
+
+    forceRender();
+  }
+
   function mutateCycle(cycle: Cycle | ((cycle: Cycle) => Cycle)) {
     if (!curCycle.current) return;
 
@@ -134,6 +150,9 @@ function useVision(props: {}) {
     curKeyResultDetail,
     handleAddKR,
     createCycle,
+    okr,
+    switchCycle,
+    deleteCycle,
   };
 }
 

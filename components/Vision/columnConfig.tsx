@@ -2,7 +2,6 @@ import { KeyResult } from "./models/KeyResult";
 import { Space, Button, Popconfirm, Popover } from "antd";
 import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
 import { WrapParagraph } from "./WrapParagraph";
-import { Cycle } from "./models/Cycle";
 
 export const getColumnConfig = (props: {
   handleDelete: (kr: KeyResult) => void;

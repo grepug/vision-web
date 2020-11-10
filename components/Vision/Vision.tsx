@@ -2,10 +2,10 @@ import * as React from "react";
 import { CycleRow } from "./CycleRow";
 import { KeyResultsDetailModal } from "./Modals/KeyResultDetailModal";
 import { OKRTable } from "./OKRTable";
-import { Provider, Consumer, useContext } from "./Contexts/CycleContext";
+import { Provider, useContext } from "./Contexts/CycleContext";
 import { OKRTableActionRow } from "./OKRTableActionRow";
 import { VerticalSpace } from "./VerticalSpace";
-import { Button, Col, Row, Space } from "antd";
+import { Button, Col, Row } from "antd";
 
 export function Vision() {
   return (

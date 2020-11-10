@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Form, Input } from "antd";
+import { Form, Input, InputNumber } from "antd";
 import { EditableContext } from "./EditableContext";
 
 export const getEditableCell = (props: { forceRender: () => void }) =>
@@ -46,9 +46,11 @@ export const getEditableCell = (props: { forceRender: () => void }) =>
     let childNode = children;
 
     if (editable) {
+      const initialValue = get(record, dataIndex);
+
       childNode = editing ? (
         <Form.Item
-          initialValue={get(record, dataIndex)}
+          initialValue={initialValue}
           style={{
             margin: 0,
           }}
@@ -60,7 +62,15 @@ export const getEditableCell = (props: { forceRender: () => void }) =>
             },
           ]}
         >
-          <Input ref={inputRef as any} onPressEnter={save} onBlur={save} />
+          {isNaN(initialValue) ? (
+            <Input ref={inputRef as any} onPressEnter={save} onBlur={save} />
+          ) : (
+            <InputNumber
+              ref={inputRef as any}
+              onPressEnter={save}
+              onBlur={save}
+            />
+          )}
         </Form.Item>
       ) : (
         <div

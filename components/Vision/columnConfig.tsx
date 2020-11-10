@@ -52,6 +52,7 @@ export const getColumnConfig = (props: {
     dataIndex: "title",
     key: "id",
     editable: true,
+    width: "30%",
     render: (text: string, record: KeyResult) => {
       return (
         <Popover

@@ -109,21 +109,6 @@ function useVision(props: {}) {
     "id"
   );
 
-  const addKeyResultMenu = (
-    <Menu>
-      <Menu.Item icon={<PlusCircleOutlined />} onClick={() => handleAddKR()}>
-        Create New Objective
-      </Menu.Item>
-      <Menu.ItemGroup title="Objectives">
-        {objectives.map((el) => (
-          <Menu.Item key={el.id} onClick={() => handleAddKR(el)}>
-            {el.title}
-          </Menu.Item>
-        ))}
-      </Menu.ItemGroup>
-    </Menu>
-  );
-
   function handleExportChange(value: string) {
     const objectives = Objective.arrFromJSON(value);
 
@@ -144,7 +129,6 @@ function useVision(props: {}) {
     keyResults,
     setKeyResults,
     forceRender,
-    addKeyResultMenu,
     columns,
     key,
     exportModalVisible,
@@ -156,6 +140,7 @@ function useVision(props: {}) {
     keyResultModalVisible,
     setKeyResultModalVisible,
     curKeyResultDetailIndex,
+    handleAddKR,
   };
 }
 

@@ -1,24 +1,28 @@
 import * as React from "react";
-import { Input, Modal, message, Divider, Button } from "antd";
+import { Input, Modal } from "antd";
+import { useContext } from "../Context";
 
-export function ImportModal(props: {
-  visible: boolean;
-  onCancel: () => void;
-  onChange: (value: string) => void;
-}) {
+export function ImportModal() {
+  const ctx = useContext()!;
+
   const [value, setValue] = React.useState("");
 
   function handleOK() {
-    props.onChange(value);
-    props.onCancel();
+    ctx.handleExportChange(value);
+    handleCancel();
+  }
+
+  function handleCancel() {
+    ctx.curKeyResultDetailIndex.current = -1;
+    ctx.setImportModalVisible(false);
   }
 
   return (
     <Modal
       title="Export"
       width="800px"
-      visible={props.visible}
-      onCancel={props.onCancel}
+      visible={ctx.importModalVisible}
+      onCancel={handleCancel}
       onOk={handleOK}
     >
       <Input.TextArea

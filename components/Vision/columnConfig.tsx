@@ -1,10 +1,13 @@
 import { KeyResult } from "./models/KeyResult";
-import { Space, Button, Popconfirm } from "antd";
+import { Space, Button, Popconfirm, Popover } from "antd";
 import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
+import { WrapParagraph } from "./WrapParagraph";
+import { Key } from "readline";
 
 export const getColumnConfig = (props: {
   keyResults: KeyResult[];
   handleDelete: (kr: KeyResult) => void;
+  onKeyResultEditClick: (index: number) => void;
 }) => [
   {
     title: "Objectives",
@@ -49,6 +52,17 @@ export const getColumnConfig = (props: {
     dataIndex: "title",
     key: "id",
     editable: true,
+    render: (text: string, record: KeyResult) => {
+      return (
+        <Popover
+          placement="right"
+          title="Remark"
+          content={<WrapParagraph text={record.remark} />}
+        >
+          {text}
+        </Popover>
+      );
+    },
   },
   {
     title: "Weight",
@@ -78,10 +92,14 @@ export const getColumnConfig = (props: {
   {
     title: "Operation",
     dataIndex: "operation",
-    render: (_, record: KeyResult) =>
+    render: (_, record: KeyResult, index: number) =>
       props.keyResults.length >= 1 ? (
         <Space>
-          <Button icon={<MoreOutlined />} type="text" />
+          <Button
+            icon={<MoreOutlined />}
+            type="text"
+            onClick={() => props.onKeyResultEditClick(index)}
+          />
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => {

@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Input, Modal, message, Divider, Button } from "antd";
+import { Input, Modal, message } from "antd";
+import { useContext } from "../Context";
+import { Objective } from "../models/Objective";
 
-export function ExportModal(props: {
-  visible: boolean;
-  jsonValue: string;
-  onCancel: () => void;
-}) {
+export function ExportModal() {
+  const ctx = useContext()!;
+
   function handleCopy() {
     function copy() {
       var copyText = document.querySelector<HTMLInputElement>("#copy-input");
@@ -18,21 +18,25 @@ export function ExportModal(props: {
 
     message.success("copied!");
 
-    props.onCancel();
+    handleCancel();
+  }
+
+  function handleCancel() {
+    ctx.setExportModalVisible(false);
   }
 
   return (
     <Modal
       title="Export"
       width="800px"
-      visible={props.visible}
+      visible={ctx.exportModalVisible}
       onOk={handleCopy}
       okText="Copy"
-      onCancel={props.onCancel}
+      onCancel={handleCancel}
     >
       <Input.TextArea
         id="copy-input"
-        value={props.jsonValue}
+        value={Objective.arrToJSON(ctx.objectives)}
         style={{ height: 300 }}
       />
     </Modal>

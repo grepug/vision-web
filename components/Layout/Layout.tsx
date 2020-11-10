@@ -4,7 +4,7 @@ export function Layout(props: { children?: React.ReactNode }) {
   return (
     <LayoutAnt>
       <LayoutAnt.Content
-        style={{ width: 1200, margin: "0 auto", marginTop: 64 }}
+        style={{ width: 1100, margin: "0 auto", marginTop: 64 }}
       >
         <Typography.Title>Vision</Typography.Title>
         <Divider />

@@ -53,6 +53,10 @@ export class Cycle implements CycleProps {
     return this.objectives.reduce((acc, el) => acc + el.score, 0);
   }
 
+  get scorePercentage() {
+    return (this.score * 100).toFixed(4);
+  }
+
   get scoreString() {
     return `${(this.score * 100).toFixed(2)}%`;
   }

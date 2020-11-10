@@ -21,10 +21,12 @@ export function CycleList() {
             extra={
               <Space size="large">
                 <Progress
-                  percent={item.score * 100}
                   type="circle"
                   size="small"
+                  percent={item.score}
+                  format={(percent) => `${(percent! * 100).toFixed(2)}%`}
                 />
+
                 <Space>
                   <Button
                     onClick={() => handleSwitchCycle(i)}

@@ -1,4 +1,5 @@
-import { KeyResultProps, Record } from "../types";
+import { KeyResultProps } from "../types";
+import { Record } from "./Record";
 import { Objective } from "./Objective";
 
 export class KeyResult implements KeyResultProps {
@@ -25,7 +26,7 @@ export class KeyResult implements KeyResultProps {
   get score() {
     return (
       ((this.current / this.total) * this.weight * this.objective.weight) /
-      10000
+      10_000
     );
   }
 

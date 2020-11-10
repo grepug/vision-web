@@ -2,7 +2,6 @@ import { KeyResult } from "./models/KeyResult";
 import { Space, Button, Popconfirm, Popover } from "antd";
 import { DeleteOutlined, MoreOutlined } from "@ant-design/icons";
 import { WrapParagraph } from "./WrapParagraph";
-import { Key } from "readline";
 
 export const getColumnConfig = (props: {
   keyResults: KeyResult[];

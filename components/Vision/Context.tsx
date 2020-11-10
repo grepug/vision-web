@@ -3,10 +3,9 @@ import { createMyContext } from "../../lib/createMyContext";
 import { KeyResult } from "./models/KeyResult";
 import { Objective } from "./models/Objective";
 import type { ColumnsType } from "antd/lib/table/interface";
-import { PlusCircleOutlined } from "@ant-design/icons";
 import { findLastIndex, uniq } from "./utils";
 import { getColumnConfig } from "./columnConfig";
-import { Menu, message } from "antd";
+import { message } from "antd";
 
 const initialObjective = new Objective();
 
@@ -19,8 +18,6 @@ function useVision(props: {}) {
     false
   );
   const curKeyResultDetailIndex = React.useRef(-1);
-
-  // console.log(keyResults);
 
   function forceRender() {
     setTimeout(() => setKey((s) => s + 1), 0);

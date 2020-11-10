@@ -40,6 +40,10 @@ export class Objective implements ObjectiveProps {
     return this.keyResults.sort((a, b) => a.weight - b.weight);
   }
 
+  get score() {
+    return this.keyResults.reduce((acc, el) => acc + el.score, 0);
+  }
+
   constructor(props?: Partial<Objective>) {
     Object.assign(this, props);
   }

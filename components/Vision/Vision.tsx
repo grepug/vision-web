@@ -22,7 +22,7 @@ export function Vision() {
         <CycleRow />
         <Divider />
         <Typography.Title level={3}>OKR</Typography.Title>
-        <Divider />
+        <VerticalSpace />
         <OKRTableActionRow />
         <VerticalSpace />
         <OKRTable />

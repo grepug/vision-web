@@ -27,7 +27,7 @@ export function ExportModal() {
   return (
     <Modal
       title="Export"
-      width="800px"
+      width="1100px"
       visible={ctx.exportModalVisible}
       onOk={handleCopy}
       okText="Copy"
@@ -35,7 +35,7 @@ export function ExportModal() {
     >
       <Input.TextArea
         id="copy-input"
-        value={ctx.cycle.toJSONString()}
+        value={ctx.curCycle.current?.toJSONString()}
         style={{ height: 300 }}
       />
     </Modal>

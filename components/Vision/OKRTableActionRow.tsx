@@ -6,10 +6,16 @@ import { useContext } from "./Contexts/CycleContext";
 export function OKRTableActionRow() {
   const ctx = useContext()!;
 
+  const cycle = ctx.curCycle.current;
+
+  if (!cycle) {
+    return null;
+  }
+
   const addKeyResultMenu = (
     <Menu>
       <Menu.ItemGroup title="Objectives">
-        {ctx.cycle.objectives.map((el) => (
+        {cycle.objectives.map((el) => (
           <Menu.Item key={el.id} onClick={() => ctx.handleAddKR(el)}>
             {el.title}
           </Menu.Item>
@@ -29,35 +35,14 @@ export function OKRTableActionRow() {
           >
             Add Objective
           </Button>
-          {!!ctx.cycle.renderingKeyResults.length && (
+          {!!cycle.renderingKeyResults.length && (
             <Dropdown overlay={addKeyResultMenu}>
               <Button icon={<PlusOutlined />}>Add Key Result</Button>
             </Dropdown>
           )}
         </Space>
       </Col>
-      <Col>
-        {/* <Space split={<Divider type="vertical" />}>
-          <Space>
-            <div>Persisted</div>
-            <Switch />
-          </Space>
-          <Space>
-            <Button
-              icon={<DownloadOutlined />}
-              onClick={() => ctx.setImportModalVisible(true)}
-            >
-              Import
-            </Button>
-            <Button
-              icon={<UploadOutlined />}
-              onClick={() => ctx.setExportModalVisible(true)}
-            >
-              Export
-            </Button>
-          </Space>
-        </Space> */}
-      </Col>
+      <Col></Col>
     </Row>
   );
 }

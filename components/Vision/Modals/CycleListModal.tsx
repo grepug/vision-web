@@ -10,7 +10,7 @@ export function CycleListModal() {
 
   return (
     <Modal
-      width="800px"
+      width="1100px"
       visible={ctx.cyclesModalVisible}
       title="Cycle List"
       onCancel={handleCancel}

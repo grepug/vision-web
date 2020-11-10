@@ -5,7 +5,6 @@ import { WrapParagraph } from "./WrapParagraph";
 import { Cycle } from "./models/Cycle";
 
 export const getColumnConfig = (props: {
-  cycle: Cycle;
   handleDelete: (kr: KeyResult) => void;
   onKeyResultEditClick: (kr: KeyResult) => void;
 }) => [

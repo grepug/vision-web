@@ -20,7 +20,7 @@ export function ImportModal() {
   return (
     <Modal
       title="Export"
-      width="800px"
+      width="1100px"
       visible={ctx.importModalVisible}
       onCancel={handleCancel}
       onOk={handleOK}

@@ -11,8 +11,9 @@ import { OKR } from "../models/OKR";
 const initialObjective = new Objective();
 
 function useVision(props: {}) {
-  const [okr, setOKR] = React.useState(new OKR());
-  const [cycle, setCycle] = React.useState<Cycle>(new Cycle());
+  const okr = React.useRef(new OKR());
+  const curCycle = React.useRef<Cycle>();
+
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);
@@ -26,13 +27,26 @@ function useVision(props: {}) {
     setTimeout(() => setKey((s) => s + 1), 0);
   }
 
-  function mutateCycle(cycle: Parameters<typeof setCycle>[0]) {
-    setCycle(cycle);
+  function createCycle() {
+    const cycle = new Cycle();
+    okr.current.cycles.push(cycle);
+    curCycle.current = cycle;
+
+    forceRender();
+  }
+
+  function mutateCycle(cycle: Cycle | ((cycle: Cycle) => Cycle)) {
+    if (!curCycle.current) return;
+
+    if (typeof cycle === "function") {
+      cycle = cycle(curCycle.current);
+    }
+    curCycle.current = cycle;
+
     forceRender();
   }
 
   const columns: ColumnsType = getColumnConfig({
-    cycle,
     handleDelete,
     onKeyResultEditClick: (kr) => {
       curKeyResultDetail.current = kr;
@@ -74,13 +88,14 @@ function useVision(props: {}) {
   }
 
   function handleAddKR(objective?: Objective) {
-    const isExistedObjective = objective != null;
-
-    if (!isExistedObjective) {
-      objective = cycle.objectives.length ? new Objective() : initialObjective;
-    }
-
     mutateCycle((cycle) => {
+      const isExistedObjective = objective != null;
+
+      if (!isExistedObjective) {
+        objective = cycle.objectives.length
+          ? new Objective()
+          : initialObjective;
+      }
       const keyResult = new KeyResult();
       keyResult.objective = objective!;
       objective!.linkKeyResults(keyResult);
@@ -102,7 +117,7 @@ function useVision(props: {}) {
   }
 
   return {
-    cycle,
+    curCycle,
     mutateCycle,
     forceRender,
     columns,
@@ -118,6 +133,7 @@ function useVision(props: {}) {
     setCyclesModalVisible,
     curKeyResultDetail,
     handleAddKR,
+    createCycle,
   };
 }
 

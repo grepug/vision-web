@@ -35,7 +35,7 @@ export function KeyResultsDetailModal() {
   return (
     <Modal
       visible={ctx.keyResultModalVisible}
-      width="800px"
+      width="1100px"
       onCancel={handleCancel}
       title="Key Result Detail"
       onOk={handleSave}

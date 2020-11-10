@@ -8,10 +8,16 @@ import { useContext } from "./Contexts/CycleContext";
 export function OKRTable() {
   const ctx = useContext()!;
 
+  const cycle = ctx.curCycle.current;
+
+  if (!cycle) {
+    return null;
+  }
+
   return (
     <Table
       key={ctx.key}
-      dataSource={ctx.cycle.renderingKeyResults}
+      dataSource={cycle.renderingKeyResults}
       components={{
         body: {
           row: EditableRow,

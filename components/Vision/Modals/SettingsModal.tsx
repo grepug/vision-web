@@ -27,6 +27,8 @@ export function SettingsModal() {
       if (importedValue) {
         ctx.okr.current = OKR.fromJSONString(importedValue);
         ctx.forceRender();
+        setImportedValue(undefined);
+        message.success("Restored!");
       }
     } catch {
       message.error("Invalid Imported JSON!");
@@ -49,6 +51,7 @@ export function SettingsModal() {
       <VerticalSpace />
       <Input.TextArea
         id="copy-import"
+        value={importedValue}
         onChange={(e) => setImportedValue(e.target.value)}
       />
       <VerticalSpace />

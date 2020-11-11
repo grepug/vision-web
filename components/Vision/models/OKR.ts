@@ -42,12 +42,15 @@ export class OKR implements OKRProps {
     };
   }
 
-  toJSONString(indent: number | undefined = 2) {
-    return JSON.stringify(this.toJSON(), null, indent);
+  toJSONString(indent?: number) {
+    if (indent) {
+      return JSON.stringify(this.toJSON(), null, indent);
+    }
+    return JSON.stringify(this.toJSON());
   }
 
   sync() {
-    const jsonString = this.toJSONString(undefined);
+    const jsonString = this.toJSONString();
 
     localStorage.setItem(OKR.LOCAL_STORAGE_KEY, jsonString);
   }

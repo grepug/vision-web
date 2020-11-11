@@ -4,9 +4,10 @@ import { KeyResultsDetailModal } from "./Modals/KeyResultDetailModal";
 import { OKRTable } from "./OKRTable";
 import { Provider, useContext } from "./Contexts/CycleContext";
 import { OKRTableActionRow } from "./OKRTableActionRow";
-import { VerticalSpace } from "./VerticalSpace";
+import { VerticalSpace } from "./Styles/VerticalSpace";
 import { Button, Col, Row } from "antd";
 import { RecordModal } from "./Modals/RecordModal";
+import { SettingsModal } from "./Modals/SettingsModal";
 
 export function Vision() {
   return (
@@ -53,6 +54,7 @@ function OKR() {
       <VerticalSpace />
       <OKRTable />
       <RecordModal />
+      <SettingsModal />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   MoreOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
-import { WrapParagraph } from "./WrapParagraph";
+import { WrapParagraph } from "./Styles/WrapParagraph";
 
 export const getColumnConfig = (props: {
   handleDelete: (kr: KeyResult) => void;

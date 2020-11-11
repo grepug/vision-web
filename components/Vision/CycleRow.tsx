@@ -2,7 +2,7 @@ import { Typography, DatePicker, Form, Row, Col, Button, Space } from "antd";
 import { useContext } from "./Contexts/CycleContext";
 import moment from "moment";
 import { CycleListModal } from "./Modals/CycleListModal";
-import { VerticalSpace } from "./VerticalSpace";
+import { VerticalSpace } from "./Styles/VerticalSpace";
 import { SettingOutlined } from "@ant-design/icons";
 
 const { RangePicker } = DatePicker;
@@ -24,7 +24,7 @@ export function CycleRow() {
             </Button>
             <Button
               icon={<SettingOutlined />}
-              onClick={() => ctx.setCyclesModalVisible(true)}
+              onClick={() => ctx.setSettingsModalVisible(true)}
             >
               Settings
             </Button>

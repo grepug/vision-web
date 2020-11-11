@@ -76,8 +76,8 @@ export function OKRTableActionRow() {
       <Col>
         <Progress
           type="circle"
-          percent={cycle.score}
-          format={(percent) => `${(percent! * 100).toFixed(2)}%`}
+          percent={cycle.score * 100}
+          format={(percent) => `${percent!.toFixed(2)}%`}
           width={100}
           trailColor="#ccc"
         />

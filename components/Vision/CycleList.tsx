@@ -23,8 +23,8 @@ export function CycleList() {
                 <Progress
                   type="circle"
                   size="small"
-                  percent={item.score}
-                  format={(percent) => `${(percent! * 100).toFixed(2)}%`}
+                  percent={item.score * 100}
+                  format={(percent) => `${percent!.toFixed(2)}%`}
                 />
 
                 <Space>

@@ -17,6 +17,7 @@ export function OKRTable() {
   return (
     <Table
       key={ctx.key}
+      size="small"
       dataSource={cycle.renderingKeyResults}
       components={{
         body: {

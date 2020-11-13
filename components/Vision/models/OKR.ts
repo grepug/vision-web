@@ -1,4 +1,5 @@
 import { Cycle, CycleProps } from "./Cycle";
+import { v4 as uuid } from "uuid";
 
 interface OKRProps {
   id: string;
@@ -18,7 +19,7 @@ export class OKR implements OKRProps {
     });
   }
 
-  id = Math.random().toString().slice(-6);
+  id = uuid();
   cycles: Cycle[] = [];
   curCycleId?: string;
 
@@ -26,7 +27,7 @@ export class OKR implements OKRProps {
     return this.cycles.map((el) => ({
       score: el.score,
       title: el.title,
-      startAt: el.startAtString,
+      startAt: el.startAt,
     }));
   }
 

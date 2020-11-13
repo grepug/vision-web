@@ -17,7 +17,7 @@ export interface KeyResultProps {
 }
 
 export interface RecordProps {
-  recordDateString: string;
+  createdAt: string;
   quantity: number;
   remark: string;
 }

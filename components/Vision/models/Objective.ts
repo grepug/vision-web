@@ -1,5 +1,6 @@
 import { KeyResult } from "./KeyResult";
 import { ObjectiveProps } from "../types";
+import { v4 as uuid } from "uuid";
 
 let count = 0;
 
@@ -29,7 +30,7 @@ export class Objective implements ObjectiveProps {
     return keyResults;
   }
 
-  id = Math.random().toString().slice(-6);
+  id = uuid();
   title = `New Objective ${count++}`;
   weight = 0;
   remark = "";

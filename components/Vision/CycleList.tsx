@@ -47,8 +47,8 @@ export function CycleList() {
                   <Typography.Title level={3}>{item.title}</Typography.Title>
                   <Space direction="vertical">
                     <div>
-                      from: {formatDate(item.startAt)} to:{" "}
-                      {formatDate(item.endAt)}
+                      from: {formatDate(item.startAtMoment)} to:{" "}
+                      {formatDate(item.endAtMoment)}
                     </div>
                     <div>
                       <Space>

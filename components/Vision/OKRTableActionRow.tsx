@@ -7,7 +7,6 @@ import {
   Col,
   Menu,
   Progress,
-  Form,
   DatePicker,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -23,8 +22,8 @@ export function OKRTableActionRow() {
       if (value) {
         const [start, end] = value;
 
-        cycle.startAtString = start.toISOString();
-        cycle.endAtString = end.toISOString();
+        cycle.startAt = start.toISOString();
+        cycle.endAt = end.toISOString();
       }
 
       return cycle;
@@ -37,7 +36,7 @@ export function OKRTableActionRow() {
     return null;
   }
 
-  const range = [cycle.startAt, cycle.endAt];
+  const range = [cycle.startAtMoment, cycle.endAtMoment];
 
   const addKeyResultMenu = (
     <Menu>

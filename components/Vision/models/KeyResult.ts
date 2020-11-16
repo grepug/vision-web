@@ -20,7 +20,7 @@ export class KeyResult implements KeyResultProps {
   weight = 0;
   unit = "-";
   total = 1;
-  remark = "-";
+  remark = "";
   records: Record[] = [];
   objective = new Objective();
 

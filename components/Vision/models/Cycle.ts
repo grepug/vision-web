@@ -31,7 +31,7 @@ export class Cycle implements CycleProps {
   title = "My Cycle";
   startAt: string;
   endAt: string;
-  remark: string;
+  remark = "";
   objectives: Objective[] = [];
 
   get startAtMoment() {

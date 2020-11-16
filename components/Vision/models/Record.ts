@@ -1,14 +1,14 @@
 import { RecordProps } from "../types";
 import moment from "moment";
-import uuid from "uuid";
+import { v4 as uuid } from "uuid";
 
 export class Record implements RecordProps {
   static fromJSON(props: RecordProps) {
     return new Record(props);
   }
 
-  id = uuid.v4();
-  createdAt = moment().toISOString();
+  id = uuid();
+  createdAt = moment().format("YYYY-MM-DDTHH:mm:ssZ");
   quantity: number;
   remark = "No Remark";
 
@@ -26,6 +26,7 @@ export class Record implements RecordProps {
 
   toJSON(): RecordProps {
     return {
+      id: this.id,
       createdAt: this.createdAt,
       quantity: this.quantity,
       remark: this.remark,

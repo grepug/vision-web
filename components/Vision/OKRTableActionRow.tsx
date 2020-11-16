@@ -22,8 +22,8 @@ export function OKRTableActionRow() {
       if (value) {
         const [start, end] = value;
 
-        cycle.startAt = start.toISOString();
-        cycle.endAt = end.toISOString();
+        cycle.startAt = start.format("YYYY-MM-DDTHH:mm:ssZ");
+        cycle.endAt = end.format("YYYY-MM-DDTHH:mm:ssZ");
       }
 
       return cycle;

@@ -42,6 +42,11 @@ export class KeyResult implements KeyResultProps {
     return `${(this.score * 100).toFixed(2)}%`;
   }
 
+  get scorePerQuantity() {
+    const weight = (this.objective.weight * this.weight) / 10000;
+    return `${((weight / this.total) * 100).toFixed(2)}%`;
+  }
+
   constructor(props?: Partial<KeyResultProps>) {
     Object.assign(this, props);
   }

@@ -9,6 +9,7 @@ interface OKRProps {
 
 export class OKR implements OKRProps {
   static LOCAL_STORAGE_KEY = "local";
+  static hardCodedID = "fd7b03c3-3b34-4d8b-a106-b3be1da2f8fa";
 
   static fromJSONString(str: string) {
     const okrProps = JSON.parse(str) as OKRProps;
@@ -37,7 +38,7 @@ export class OKR implements OKRProps {
 
   toJSON(): OKRProps {
     return {
-      id: this.id,
+      id: OKR.hardCodedID,
       curCycleId: this.curCycleId,
       cycles: this.cycles.map((el) => el.toJSON()),
     };

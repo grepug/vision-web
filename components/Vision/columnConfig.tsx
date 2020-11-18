@@ -92,6 +92,11 @@ export const getColumnConfig = (props: {
     width: "5%",
   },
   {
+    title: "Score Per Quantity",
+    dataIndex: "scorePerQuantity",
+    width: "5%",
+  },
+  {
     title: "Score",
     dataIndex: "scoreString",
     width: "5%",

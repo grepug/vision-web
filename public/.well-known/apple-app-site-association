@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "NND5T8LZPS.com.visionapp.vision",
+        "paths": [
+          "*"
+        ]
+      }
+    ]
+  }
+}

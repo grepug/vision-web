@@ -2,12 +2,13 @@ import { ObjectiveProps } from "../types";
 import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
 import moment from "moment";
+import { v4 as uuid } from "uuid";
 
 export interface CycleProps {
   id: string;
   title: string;
-  startAtString: string;
-  endAtString: string;
+  startAt: string;
+  endAt: string;
   remark: string;
   objectives: ObjectiveProps[];
 }
@@ -26,27 +27,27 @@ export class Cycle implements CycleProps {
     return Cycle.fromJSON(cycleProps);
   }
 
-  id = Math.random().toString().slice(-6);
+  id = uuid();
   title = "My Cycle";
-  startAtString: string;
-  endAtString: string;
-  remark: string;
+  startAt: string;
+  endAt: string;
+  remark = "";
   objectives: Objective[] = [];
 
-  get startAt() {
-    return moment(this.startAtString);
+  get startAtMoment() {
+    return moment(this.startAt);
   }
 
-  get endAt() {
-    return moment(this.endAtString);
+  get endAtMoment() {
+    return moment(this.endAt);
   }
 
   get totaldays() {
-    return this.endAt.diff(this.startAt, "days");
+    return this.endAtMoment.diff(this.startAtMoment, "days");
   }
 
   get daysLeft() {
-    return this.endAt.diff(moment(), "days");
+    return this.endAtMoment.diff(moment(), "days");
   }
 
   get score() {
@@ -91,8 +92,8 @@ export class Cycle implements CycleProps {
     return {
       id: this.id,
       title: this.title,
-      startAtString: this.startAtString,
-      endAtString: this.endAtString,
+      startAt: this.startAt,
+      endAt: this.endAt,
       remark: this.remark,
       objectives: this.objectives.map((el) => el.toJSON()),
     };

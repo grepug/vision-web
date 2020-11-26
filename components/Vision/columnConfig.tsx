@@ -5,7 +5,7 @@ import {
   MoreOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
-import { WrapParagraph } from "./WrapParagraph";
+import { WrapParagraph } from "./Styles/WrapParagraph";
 
 export const getColumnConfig = (props: {
   handleDelete: (kr: KeyResult) => void;
@@ -72,6 +72,7 @@ export const getColumnConfig = (props: {
     title: "Weight",
     dataIndex: "weight",
     editable: true,
+    width: "5%",
     render: (text) => `${text}%`,
   },
   {
@@ -83,14 +84,22 @@ export const getColumnConfig = (props: {
     title: "Total Quantity",
     dataIndex: "total",
     editable: true,
+    width: "5%",
   },
   {
     title: "Current Quantity",
     dataIndex: "current",
+    width: "5%",
+  },
+  {
+    title: "Score Per Quantity",
+    dataIndex: "scorePerQuantity",
+    width: "5%",
   },
   {
     title: "Score",
     dataIndex: "scoreString",
+    width: "5%",
   },
   {
     title: "Operation",

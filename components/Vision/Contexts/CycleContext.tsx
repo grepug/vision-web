@@ -39,6 +39,7 @@ function useVision(props: {}) {
   );
   const [cyclesModalVisible, setCyclesModalVisible] = React.useState(false);
   const [recordsModalVisible, setRecordsModalVisible] = React.useState(false);
+  const [settingsModalVisible, setSettingsModalVisible] = React.useState(false);
   const curKeyResult = React.useRef<KeyResult>();
 
   function forceRender() {
@@ -182,6 +183,8 @@ function useVision(props: {}) {
     setCyclesModalVisible,
     recordsModalVisible,
     setRecordsModalVisible,
+    settingsModalVisible,
+    setSettingsModalVisible,
     curKeyResult,
     handleAddKR,
     createCycle,

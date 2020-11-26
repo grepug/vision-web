@@ -1,6 +1,7 @@
 import { KeyResultProps } from "../types";
 import { Record } from "./Record";
 import { Objective } from "./Objective";
+import { v4 as uuid } from "uuid";
 
 export class KeyResult implements KeyResultProps {
   static createNew(count = 1) {
@@ -14,12 +15,12 @@ export class KeyResult implements KeyResultProps {
     return keyResult;
   }
 
-  id = Math.random().toString().slice(-6);
+  id = uuid();
   title = "New Key Result";
   weight = 0;
   unit = "-";
   total = 1;
-  remark = "-";
+  remark = "";
   records: Record[] = [];
   objective = new Objective();
 
@@ -39,6 +40,11 @@ export class KeyResult implements KeyResultProps {
 
   get scoreString() {
     return `${(this.score * 100).toFixed(2)}%`;
+  }
+
+  get scorePerQuantity() {
+    const weight = (this.objective.weight * this.weight) / 10000;
+    return `${((weight / this.total) * 100).toFixed(2)}%`;
   }
 
   constructor(props?: Partial<KeyResultProps>) {

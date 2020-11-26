@@ -4,10 +4,11 @@ import { KeyResultsDetailModal } from "./Modals/KeyResultDetailModal";
 import { OKRTable } from "./OKRTable";
 import { Provider, useContext } from "./Contexts/CycleContext";
 import { OKRTableActionRow } from "./OKRTableActionRow";
-import { VerticalSpace } from "./VerticalSpace";
+import { VerticalSpace } from "./Styles/VerticalSpace";
 import { Button, Col, Row } from "antd";
 import { RecordModal } from "./Modals/RecordModal";
 import { useAuth0 } from "@auth0/auth0-react";
+import { SettingsModal } from "./Modals/SettingsModal";
 
 export function Vision() {
   const { loginWithRedirect, user, getIdTokenClaims } = useAuth0();
@@ -63,6 +64,7 @@ function OKR() {
       <VerticalSpace />
       <OKRTable />
       <RecordModal />
+      <SettingsModal />
     </div>
   );
 }

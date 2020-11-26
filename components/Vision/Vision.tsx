@@ -7,10 +7,20 @@ import { OKRTableActionRow } from "./OKRTableActionRow";
 import { VerticalSpace } from "./VerticalSpace";
 import { Button, Col, Row } from "antd";
 import { RecordModal } from "./Modals/RecordModal";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function Vision() {
+  const { loginWithRedirect, user, getIdTokenClaims } = useAuth0();
+
+  console.log("user", user);
+
+  React.useEffect(() => {
+    getIdTokenClaims().then((res) => console.log(res));
+  }, []);
+
   return (
     <div style={{ paddingBottom: 200 }}>
+      <Button onClick={() => loginWithRedirect()}>Login</Button>
       <Provider>
         <OKR />
       </Provider>

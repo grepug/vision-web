@@ -4,10 +4,10 @@ import { Provider as LoginProvider } from "components/Login/Context";
 
 export default function Home() {
   return (
-    <Layout>
-      <LoginProvider>
+    <LoginProvider>
+      <Layout>
         <Vision />
-      </LoginProvider>
-    </Layout>
+      </Layout>
+    </LoginProvider>
   );
 }

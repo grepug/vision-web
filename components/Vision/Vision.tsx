@@ -21,7 +21,6 @@ export function Vision() {
 
   return (
     <div style={{ paddingBottom: 200 }}>
-      <Button onClick={() => loginWithRedirect()}>Login</Button>
       <Provider>
         <OKR />
       </Provider>

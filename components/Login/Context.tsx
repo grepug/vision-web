@@ -1,36 +1,49 @@
 import { createMyContext } from "lib/createMyContext";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { ReactNode, useEffect } from "react";
+import type { User } from "./types";
 
-function hook(_: {}) {
-  const { user, loginWithRedirect, isLoading } = useAuth0();
+interface ProviderProps {
+  shouldRedirectToLogin?: boolean;
+}
 
-  console.log("user", user, isLoading);
+function hook(props: ProviderProps) {
+  const auth = useAuth0();
+
+  const { isLoading, loginWithRedirect: login, logout } = auth;
+  const user: User | undefined = auth.user;
 
   useEffect(() => {
-    if (!user && !isLoading) {
-      loginWithRedirect();
+    if (props.shouldRedirectToLogin && !user && !isLoading) {
+      login();
     }
-  }, [user]);
+  }, [props.shouldRedirectToLogin, user, isLoading]);
 
   return {
     user,
+    logout,
+    login,
   };
 }
 
-const { Provider: LoginProvider } = createMyContext<
+const { Provider: LoginProvider, useContext } = createMyContext<
   Parameters<typeof hook>[0],
   ReturnType<typeof hook>
 >(hook);
 
-export function Provider(props: { children?: ReactNode }) {
+export { useContext };
+
+export function Provider({
+  children,
+  ...props
+}: { children?: ReactNode } & ProviderProps) {
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
       redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI!}
     >
-      <LoginProvider>{props.children}</LoginProvider>
+      <LoginProvider {...props}>{children}</LoginProvider>
     </Auth0Provider>
   );
 }

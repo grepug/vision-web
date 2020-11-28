@@ -1,0 +1,18 @@
+mutation createCycle($objects: [cycle_insert_input!] = []) {
+  insert_cycle(objects: $objects) {
+    returning {
+      title
+      startAt
+      endAt
+      objectives {
+        id
+        key_results {
+          id
+          records {
+            id
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,15 +18,15 @@ export enum cycle_constraint {
  * update columns of table "cycle"
  */
 export enum cycle_update_column {
-  created_at = "created_at",
+  createdAt = "createdAt",
   endAt = "endAt",
   id = "id",
   predict_score = "predict_score",
   remark = "remark",
   startAt = "startAt",
   title = "title",
-  updated_at = "updated_at",
-  user_id = "user_id",
+  updatedAt = "updatedAt",
+  userId = "userId",
 }
 
 /**
@@ -62,7 +62,7 @@ export enum key_result_update_column {
   objective_id = "objective_id",
   remark = "remark",
   title = "title",
-  total_quantity = "total_quantity",
+  total = "total",
   unit = "unit",
   updated_at = "updated_at",
   weight = "weight",
@@ -99,12 +99,12 @@ export enum record_constraint {
  * update columns of table "record"
  */
 export enum record_update_column {
-  created_at = "created_at",
+  createdAt = "createdAt",
   id = "id",
   key_result_id = "key_result_id",
   quantity = "quantity",
   remark = "remark",
-  updated_at = "updated_at",
+  updatedAt = "updatedAt",
 }
 
 /**
@@ -165,7 +165,7 @@ export interface cycle_bool_exp {
   _and?: (cycle_bool_exp | null)[] | null;
   _not?: cycle_bool_exp | null;
   _or?: (cycle_bool_exp | null)[] | null;
-  created_at?: timestamptz_comparison_exp | null;
+  createdAt?: timestamptz_comparison_exp | null;
   endAt?: timestamptz_comparison_exp | null;
   id?: uuid_comparison_exp | null;
   objectives?: objective_bool_exp | null;
@@ -173,16 +173,16 @@ export interface cycle_bool_exp {
   remark?: String_comparison_exp | null;
   startAt?: timestamptz_comparison_exp | null;
   title?: String_comparison_exp | null;
-  updated_at?: timestamptz_comparison_exp | null;
+  updatedAt?: timestamptz_comparison_exp | null;
   user?: user_bool_exp | null;
-  user_id?: uuid_comparison_exp | null;
+  userId?: uuid_comparison_exp | null;
 }
 
 /**
  * input type for inserting data into table "cycle"
  */
 export interface cycle_insert_input {
-  created_at?: any | null;
+  createdAt?: any | null;
   endAt?: any | null;
   id?: any | null;
   objectives?: objective_arr_rel_insert_input | null;
@@ -190,9 +190,9 @@ export interface cycle_insert_input {
   remark?: string | null;
   startAt?: any | null;
   title?: string | null;
-  updated_at?: any | null;
+  updatedAt?: any | null;
   user?: user_obj_rel_insert_input | null;
-  user_id?: any | null;
+  userId?: any | null;
 }
 
 /**
@@ -276,7 +276,7 @@ export interface key_result_bool_exp {
   records?: record_bool_exp | null;
   remark?: String_comparison_exp | null;
   title?: String_comparison_exp | null;
-  total_quantity?: numeric_comparison_exp | null;
+  total?: numeric_comparison_exp | null;
   unit?: String_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
   weight?: numeric_comparison_exp | null;
@@ -293,7 +293,7 @@ export interface key_result_insert_input {
   records?: record_arr_rel_insert_input | null;
   remark?: string | null;
   title?: string | null;
-  total_quantity?: any | null;
+  total?: any | null;
   unit?: string | null;
   updated_at?: any | null;
   weight?: any | null;
@@ -350,7 +350,7 @@ export interface objective_bool_exp {
   cycle?: cycle_bool_exp | null;
   cycle_id?: uuid_comparison_exp | null;
   id?: uuid_comparison_exp | null;
-  key_results?: key_result_bool_exp | null;
+  keyResults?: key_result_bool_exp | null;
   remark?: String_comparison_exp | null;
   title?: String_comparison_exp | null;
   updated_at?: timestamptz_comparison_exp | null;
@@ -365,7 +365,7 @@ export interface objective_insert_input {
   cycle?: cycle_obj_rel_insert_input | null;
   cycle_id?: any | null;
   id?: any | null;
-  key_results?: key_result_arr_rel_insert_input | null;
+  keyResults?: key_result_arr_rel_insert_input | null;
   remark?: string | null;
   title?: string | null;
   updated_at?: any | null;
@@ -404,26 +404,26 @@ export interface record_bool_exp {
   _and?: (record_bool_exp | null)[] | null;
   _not?: record_bool_exp | null;
   _or?: (record_bool_exp | null)[] | null;
-  created_at?: timestamptz_comparison_exp | null;
+  createdAt?: timestamptz_comparison_exp | null;
   id?: uuid_comparison_exp | null;
-  key_result?: key_result_bool_exp | null;
+  keyResult?: key_result_bool_exp | null;
   key_result_id?: uuid_comparison_exp | null;
   quantity?: numeric_comparison_exp | null;
   remark?: String_comparison_exp | null;
-  updated_at?: timestamptz_comparison_exp | null;
+  updatedAt?: timestamptz_comparison_exp | null;
 }
 
 /**
  * input type for inserting data into table "record"
  */
 export interface record_insert_input {
-  created_at?: any | null;
+  createdAt?: any | null;
   id?: any | null;
-  key_result?: key_result_obj_rel_insert_input | null;
+  keyResult?: key_result_obj_rel_insert_input | null;
   key_result_id?: any | null;
   quantity?: any | null;
   remark?: string | null;
-  updated_at?: any | null;
+  updatedAt?: any | null;
 }
 
 /**

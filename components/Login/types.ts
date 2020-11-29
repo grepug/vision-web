@@ -6,4 +6,7 @@ export interface User {
   picture: string;
   sub: string;
   updated_at: string;
+  "https://hasura.io/jwt/claims": {
+    "x-hasura-user-id": string;
+  };
 }

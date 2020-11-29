@@ -1,16 +1,28 @@
-mutation createCycle($objects: [cycle_insert_input!] = []) {
-  insert_cycle(objects: $objects) {
-    returning {
+query GetCycles {
+  cycle {
+    id
+    startAt
+    endAt
+    remark
+    predict_score
+    title
+    objectives {
+      id
       title
-      startAt
-      endAt
-      objectives {
+      weight
+      remark
+      keyResults {
         id
-        key_results {
+        title
+        unit
+        total
+        weight
+        remark
+        records {
           id
-          records {
-            id
-          }
+          remark
+          quantity
+          createdAt
         }
       }
     }

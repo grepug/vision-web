@@ -29,8 +29,6 @@ function useVision(props: {}) {
     okr.current.cycles.find((el) => el.id === okr.current.curCycleId),
   );
 
-  console.log(curCycle);
-
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);

@@ -1,0 +1,7 @@
+query GetUser($auth0UserId: String!) {
+  user(where: { auth0_user_id: { _eq: $auth0UserId } }, limit: 1) {
+    id
+    name
+    email
+  }
+}

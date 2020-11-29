@@ -3,6 +3,9 @@ import { KeyResult } from "./KeyResult";
 import { Objective } from "./Objective";
 import moment from "moment";
 import { v4 as uuid } from "uuid";
+import { useQuery } from "@apollo/client";
+import getCyclesGQL from "graphql/getCycles.gql";
+import { GetCycles } from "graphql/__generated__/GetCycles";
 
 export interface CycleProps {
   id: string;
@@ -25,6 +28,21 @@ export class Cycle implements CycleProps {
     const cycleProps = JSON.parse(str) as CycleProps;
 
     return Cycle.fromJSON(cycleProps);
+  }
+
+  static useCycle() {
+    const { data, ...res } = useQuery<GetCycles>(getCyclesGQL);
+
+    const cycleObjects = data?.cycle.map((el) => {
+      const obj = Cycle.fromJSON(el);
+
+      return obj;
+    });
+
+    return {
+      ...res,
+      data: cycleObjects,
+    };
   }
 
   id = uuid();

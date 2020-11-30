@@ -3,5 +3,8 @@ query GetUser($auth0UserId: String!) {
     id
     name
     email
+    userConfig {
+      curSelectedCycleId
+    }
   }
 }

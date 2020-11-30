@@ -33,7 +33,7 @@ function OKR() {
     return null;
   }
 
-  if (!ctx.curCycle.current) {
+  if (!ctx.curCycle) {
     return (
       <Row align="middle" justify="center" style={{ marginTop: 200 }}>
         <Col></Col>

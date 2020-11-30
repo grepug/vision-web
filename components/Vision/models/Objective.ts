@@ -12,7 +12,7 @@ export class Objective implements ObjectiveProps {
       const keyResult = KeyResult.fromJSON(el);
       keyResult.objective = objective;
 
-      objective.keyResults.push(keyResult);
+      // objective.keyResults.push(keyResult);
 
       return keyResult;
     });

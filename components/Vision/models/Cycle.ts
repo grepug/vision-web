@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { useQuery } from "@apollo/client";
 import getCyclesGQL from "graphql/getCycles.gql";
 import { GetCycles } from "graphql/__generated__/GetCycles";
+import { useContext as useLoginCtx } from "components/Login/Context";
 
 export interface CycleProps {
   id: string;
@@ -31,7 +32,10 @@ export class Cycle implements CycleProps {
   }
 
   static useCycle() {
-    const { data, ...res } = useQuery<GetCycles>(getCyclesGQL);
+    const loginCtx = useLoginCtx()!;
+    const { data } = useQuery<GetCycles>(getCyclesGQL, {
+      client: loginCtx.apolloClient,
+    });
 
     const cycleObjects = data?.cycle.map((el) => {
       const obj = Cycle.fromJSON(el);
@@ -40,8 +44,7 @@ export class Cycle implements CycleProps {
     });
 
     return {
-      ...res,
-      data: cycleObjects,
+      cycleObjects,
     };
   }
 

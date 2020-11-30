@@ -15,7 +15,7 @@ export function CycleList() {
   return (
     <div>
       <List
-        dataSource={ctx.okr.current.cycles}
+        dataSource={ctx.cycleObjects}
         renderItem={(item, i) => (
           <List.Item
             extra={
@@ -30,11 +30,9 @@ export function CycleList() {
                 <Space>
                   <Button
                     onClick={() => handleSwitchCycle(i)}
-                    disabled={item.id === ctx.curCycle.current?.id}
+                    disabled={item.id === ctx.curCycleId}
                   >
-                    {item.id === ctx.curCycle.current?.id
-                      ? "Current"
-                      : "Switch"}
+                    {item.id === ctx.curCycleId ? "Current" : "Switch"}
                   </Button>
                   <DeleteButton onConfirm={() => ctx.deleteCycle(item.id, i)} />
                 </Space>

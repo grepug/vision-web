@@ -24,8 +24,8 @@ export function Avatar() {
         }
       >
         <img
-          src={ctx?.user.picture}
-          alt={ctx?.user.nickname}
+          src={ctx?.auth0User?.picture}
+          alt={ctx?.user.name}
           style={{ width, height: width, borderRadius: "50%" }}
         />
       </Dropdown>

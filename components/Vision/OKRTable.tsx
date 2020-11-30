@@ -8,7 +8,7 @@ import { useContext } from "./Contexts/CycleContext";
 export function OKRTable() {
   const ctx = useContext()!;
 
-  const cycle = ctx.curCycle.current;
+  const cycle = ctx.curCycle;
 
   if (!cycle) {
     return null;

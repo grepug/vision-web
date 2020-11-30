@@ -6,28 +6,21 @@ import type { ColumnsType } from "antd/lib/table/interface";
 import { getColumnConfig } from "../columnConfig";
 import { message } from "antd";
 import { Cycle } from "../models/Cycle";
-import { OKR } from "../models/OKR";
+import { useContext as useLoginCtx } from "components/Login/Context";
 
 const initialObjective = new Objective();
 
 function useVision(props: {}) {
-  const okr = React.useRef(
-    (() => {
-      if (typeof window !== "undefined") {
-        const jsonString = localStorage.getItem(OKR.LOCAL_STORAGE_KEY);
+  const loginCtx = useLoginCtx()!;
 
-        if (jsonString) {
-          return OKR.fromJSONString(jsonString);
-        }
-      }
+  const curCycleId: string | undefined =
+    loginCtx.user?.userConfig?.curSelectedCycleId;
 
-      return new OKR();
-    })(),
-  );
+  const { cycleObjects } = Cycle.useCycle();
 
-  const curCycle = React.useRef<Cycle | undefined>(
-    okr.current.cycles.find((el) => el.id === okr.current.curCycleId),
-  );
+  const curCycle = cycleObjects?.find((el) => el.id === curCycleId);
+
+  console.log("curCycle", curCycle, cycleObjects, curCycleId);
 
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
@@ -41,43 +34,43 @@ function useVision(props: {}) {
   const curKeyResult = React.useRef<KeyResult>();
 
   function forceRender() {
-    okr.current.curCycleId = curCycle.current?.id;
-    okr.current.sync();
+    // okr.current.curCycleId = curCycle.current?.id;
+    // okr.current.sync();
 
     setTimeout(() => setKey((s) => s + 1), 0);
   }
 
   function createCycle() {
-    const cycle = new Cycle();
-    okr.current.cycles.push(cycle);
-    curCycle.current = cycle;
+    // const cycle = new Cycle();
+    // okr.current.cycles.push(cycle);
+    // curCycle.current = cycle;
 
     forceRender();
   }
 
   function switchCycle(index: number) {
-    curCycle.current = okr.current.cycles[index];
+    // curCycle.current = okr.current.cycles[index];
 
     forceRender();
   }
 
   function deleteCycle(cycleId: string, index: number) {
-    okr.current.cycles.splice(index, 1);
+    // okr.current.cycles.splice(index, 1);
 
-    if (cycleId === curCycle.current?.id) {
-      curCycle.current = okr.current.cycles[0];
-    }
+    // if (cycleId === curCycle.current?.id) {
+    //   curCycle.current = okr.current.cycles[0];
+    // }
 
     forceRender();
   }
 
   function mutateCycle(cycle: Cycle | ((cycle: Cycle) => Cycle)) {
-    if (!curCycle.current) return;
+    // if (!curCycle.current) return;
 
-    if (typeof cycle === "function") {
-      cycle = cycle(curCycle.current);
-    }
-    curCycle.current = cycle;
+    // if (typeof cycle === "function") {
+    //   cycle = cycle(curCycle.current);
+    // }
+    // curCycle.current = cycle;
 
     forceRender();
   }
@@ -165,7 +158,9 @@ function useVision(props: {}) {
   }
 
   return {
+    cycleObjects,
     curCycle,
+    curCycleId,
     mutateCycle,
     forceRender,
     columns,
@@ -186,7 +181,6 @@ function useVision(props: {}) {
     curKeyResult,
     handleAddKR,
     createCycle,
-    okr,
     switchCycle,
     deleteCycle,
   };

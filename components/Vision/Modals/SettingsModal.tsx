@@ -39,31 +39,28 @@ export function SettingsModal() {
   }
 
   function handleImport() {
-    try {
-      if (importedValue) {
-        ctx.okr.current = OKR.fromJSONString(importedValue);
-        const variables = transformCycleToVariable(
-          ctx.okr.current.cycles,
-          loginCtx.user!.id,
-        );
-
-        loginCtx.apolloClient.mutate<
-          CreateCycle_insert_cycle,
-          CreateCycleVariables
-        >({
-          mutation: createCyclesGql,
-          variables,
-        });
-
-        ctx.forceRender();
-        setImportedValue(undefined);
-        message.success("Restored!");
-      }
-    } catch (e) {
-      console.log(e);
-
-      message.error("Invalid Imported JSON!");
-    }
+    // try {
+    //   if (importedValue) {
+    //     ctx.okr.current = OKR.fromJSONString(importedValue);
+    //     const variables = transformCycleToVariable(
+    //       ctx.okr.current.cycles,
+    //       loginCtx.user!.id,
+    //     );
+    //     loginCtx.apolloClient.mutate<
+    //       CreateCycle_insert_cycle,
+    //       CreateCycleVariables
+    //     >({
+    //       mutation: createCyclesGql,
+    //       variables,
+    //     });
+    //     ctx.forceRender();
+    //     setImportedValue(undefined);
+    //     message.success("Restored!");
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    //   message.error("Invalid Imported JSON!");
+    // }
   }
 
   function handleCancel() {
@@ -92,10 +89,10 @@ export function SettingsModal() {
       <Divider />
       <Typography.Title level={3}>Export</Typography.Title>
       <VerticalSpace />
-      <Input.TextArea
+      {/* <Input.TextArea
         id="copy-input"
         value={ctx.okr.current.toJSONString(undefined)}
-      />
+      /> */}
       <VerticalSpace />
       <TextAlignRight>
         <Button onClick={handleCopy}>Copy</Button>

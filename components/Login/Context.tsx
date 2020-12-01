@@ -2,17 +2,9 @@ import { createMyContext } from "lib/createMyContext";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import type { User } from "./types";
-import {
-  ApolloClient,
-  InMemoryCache,
-  useLazyQuery,
-  ApolloProvider,
-} from "@apollo/client";
-import GetUserGQL from "graphql/queries/getUser.gql";
-import {
-  GetUser,
-  GetUserVariables,
-} from "graphql/queries/__generated__/GetUser";
+import { GET_USER_GQL } from "gql/user.gql";
+import { GetUserQuery, GetUserQueryVariables } from "gql/gql.generated";
+import { GraphQLClient } from "graphql-request";
 
 interface ProviderProps {
   shouldRedirectToLogin?: boolean;
@@ -27,32 +19,22 @@ function hook(props: ProviderProps) {
     logout,
     getIdTokenClaims,
   } = auth;
+
   const auth0User: User | undefined = auth.user;
 
   const [jwt, setJwt] = useState<string>();
+  const [user, setUser] = useState<GetUserQuery["user"][0]>();
 
-  const apolloClient = useMemo(
+  const client = useMemo(
     () =>
-      new ApolloClient({
-        connectToDevTools: true,
-        uri: process.env.NEXT_PUBLIC_GRAPHQL_URI!,
-        cache: new InMemoryCache(),
-        headers: {
-          authorization: `Bearer ${jwt}`,
-        },
-      }),
+      jwt
+        ? new GraphQLClient(process.env.NEXT_PUBLIC_GRAPHQL_URI!, {
+            headers: {
+              authorization: `Bearer ${jwt}`,
+            },
+          })
+        : null,
     [jwt],
-  );
-
-  const [loadUser, { data: user }] = useLazyQuery<GetUser, GetUserVariables>(
-    GetUserGQL,
-    {
-      client: apolloClient,
-      variables: {
-        auth0UserId:
-          auth0User?.["https://hasura.io/jwt/claims"]["x-hasura-user-id"] ?? "",
-      },
-    },
   );
 
   useEffect(() => {
@@ -62,21 +44,28 @@ function hook(props: ProviderProps) {
   }, [props.shouldRedirectToLogin, auth0User, isLoading]);
 
   useEffect(() => {
-    if (auth0User) {
-      loadUser();
-
-      getIdTokenClaims().then((res) => {
-        setJwt(res?.__raw);
-      });
+    if (client) {
+      client
+        .request<GetUserQuery, GetUserQueryVariables>(GET_USER_GQL, {
+          auth0UserId:
+            auth0User?.["https://hasura.io/jwt/claims"]["x-hasura-user-id"] ??
+            "",
+        })
+        .then(({ user }) => setUser(user[0]));
     }
-  }, [auth0User]);
+
+    getIdTokenClaims().then((res) => {
+      setJwt(res?.__raw);
+    });
+  }, [auth0User, jwt]);
 
   return {
     auth0User,
-    user: user?.user[0],
+    user,
+    setUser,
     logout,
     login,
-    apolloClient,
+    client,
   };
 }
 
@@ -86,7 +75,7 @@ const {
   useContext,
 } = createMyContext<Parameters<typeof hook>[0], ReturnType<typeof hook>>(hook);
 
-export { useContext };
+export { useContext as useLoginCtx };
 
 export function Provider({
   children,
@@ -99,13 +88,7 @@ export function Provider({
       redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI!}
     >
       <LoginProvider {...props}>
-        <LoginConsumer>
-          {(ctx) => (
-            <ApolloProvider client={ctx!.apolloClient}>
-              {children}
-            </ApolloProvider>
-          )}
-        </LoginConsumer>
+        <LoginConsumer>{(ctx) => children}</LoginConsumer>
       </LoginProvider>
     </Auth0Provider>
   );

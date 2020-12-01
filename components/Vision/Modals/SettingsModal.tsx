@@ -3,7 +3,7 @@ import { Modal, Input, Typography, message, Button, Divider } from "antd";
 import { useContext } from "../Contexts/CycleContext";
 import { TextAlignRight } from "../Styles/TextAlignRight";
 import { VerticalSpace } from "../Styles/VerticalSpace";
-import { CreateCycleVariables } from "graphql/queries/__generated__/createCycle";
+import { CreateCycleVariables } from "gql/queries/__generated__/createCycle";
 import { Cycle } from "../models/Cycle";
 import { Objective } from "../models/Objective";
 import {

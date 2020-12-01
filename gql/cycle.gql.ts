@@ -65,15 +65,18 @@ export const GET_CYCLES = gql`
   ${CYCLE_RES_FRAGMENT}
 `;
 
-export const createCycleGQL = gql`
-  mutation CreateCycle($objects: [cycle_insert_input!]!) {
-    insert_cycle(objects: $objects) {
-      affected_rows
-      returning {
-        ...cycleRes
-      }
+export const CREATE_CYCLE_GQL = gql`
+  mutation CreateCycle($object: cycle_insert_input!) {
+    insert_cycle_one(object: $object) {
+      id
     }
   }
+`;
 
-  ${CYCLE_RES_FRAGMENT}
+export const CREATE_KR_GQL = gql`
+  mutation CreateKeyResult($object: key_result_insert_input!) {
+    insert_key_result_one(object: $object) {
+      id
+    }
+  }
 `;

@@ -6,14 +6,16 @@
     "dev": "next dev --port 5100",
     "build": "next build",
     "start": "next start",
-    "gen": "apollo client:codegen --target typescript"
+    "gen": "node scripts/genGraphqlCode.js"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@apollo/client": "^3.2.9",
     "@auth0/auth0-react": "^1.2.0",
     "antd": "^4.8.0",
+    "dotenv": "^8.2.0",
     "graphql": "^15.4.0",
+    "graphql-request": "^3.3.0",
     "graphql.macro": "^1.4.2",
     "next": "10.0.1",
     "react": "17.0.1",
@@ -21,10 +23,15 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.19.4",
+    "@graphql-codegen/introspection": "^1.18.1",
+    "@graphql-codegen/typescript": "^1.19.0",
+    "@graphql-codegen/typescript-operations": "^1.17.12",
     "@types/node": "^14.14.6",
     "@types/react": "^16.9.56",
     "@types/uuid": "^8.3.0",
     "apollo": "^2.31.1",
+    "graphqurl": "^0.3.3",
     "typescript": "^4.0.5"
   }
 }

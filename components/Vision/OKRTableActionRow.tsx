@@ -57,11 +57,11 @@ export function OKRTableActionRow() {
           <Button
             icon={<PlusOutlined />}
             type="primary"
-            onClick={ctx.handleAddObjective}
+            onClick={ctx.handleCreateObjective}
           >
             Add Objective
           </Button>
-          {!!cycle.renderingKeyResults.length && (
+          {!!cycle.objectives.length && (
             <Dropdown overlay={addKeyResultMenu}>
               <Button icon={<PlusOutlined />}>Add Key Result</Button>
             </Dropdown>

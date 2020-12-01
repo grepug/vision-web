@@ -1,5 +1,5 @@
 import { Dropdown, Menu, Button } from "antd";
-import { useContext as useLoginCtx } from "../Login/Context";
+import { useLoginCtx } from "../Login/Context";
 
 export function Avatar() {
   const ctx = useLoginCtx();

@@ -4,9 +4,8 @@ import { Objective } from "./Objective";
 import moment from "moment";
 import { v4 as uuid } from "uuid";
 import { useQuery } from "@apollo/client";
-import getCyclesGQL from "graphql/getCycles.gql";
-import { GetCycles } from "graphql/__generated__/GetCycles";
-import { useContext as useLoginCtx } from "components/Login/Context";
+import { GET_CYCLES } from "graphql/cycle.gql";
+import { GetCycles } from "graphql/queries/__generated__/GetCycles";
 
 export interface CycleProps {
   id: string;
@@ -32,10 +31,7 @@ export class Cycle implements CycleProps {
   }
 
   static useCycle() {
-    const loginCtx = useLoginCtx()!;
-    const { data } = useQuery<GetCycles>(getCyclesGQL, {
-      client: loginCtx.apolloClient,
-    });
+    const { data } = useQuery<GetCycles>(GET_CYCLES);
 
     const cycleObjects = data?.cycle.map((el) => {
       const obj = Cycle.fromJSON(el);
@@ -50,8 +46,8 @@ export class Cycle implements CycleProps {
 
   id = uuid();
   title = "My Cycle";
-  startAt: string;
-  endAt: string;
+  startAt = new Date().toISOString();
+  endAt = new Date(Date.now() + 24 * 3600 * 30).toISOString();
   remark = "";
   objectives: Objective[] = [];
 
@@ -117,6 +113,13 @@ export class Cycle implements CycleProps {
       endAt: this.endAt,
       remark: this.remark,
       objectives: this.objectives.map((el) => el.toJSON()),
+    };
+  }
+
+  toJSON_data() {
+    return {
+      ...this.toJSON(),
+      objectives: { data: this.objectives.map((el) => el.toJSON_Data()) },
     };
   }
 

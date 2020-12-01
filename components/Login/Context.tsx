@@ -2,9 +2,17 @@ import { createMyContext } from "lib/createMyContext";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import type { User } from "./types";
-import { ApolloClient, InMemoryCache, useLazyQuery } from "@apollo/client";
-import GetUserGQL from "graphql/getUser.gql";
-import { GetUser, GetUserVariables } from "graphql/__generated__/GetUser";
+import {
+  ApolloClient,
+  InMemoryCache,
+  useLazyQuery,
+  ApolloProvider,
+} from "@apollo/client";
+import GetUserGQL from "graphql/queries/getUser.gql";
+import {
+  GetUser,
+  GetUserVariables,
+} from "graphql/queries/__generated__/GetUser";
 
 interface ProviderProps {
   shouldRedirectToLogin?: boolean;
@@ -26,6 +34,7 @@ function hook(props: ProviderProps) {
   const apolloClient = useMemo(
     () =>
       new ApolloClient({
+        connectToDevTools: true,
         uri: process.env.NEXT_PUBLIC_GRAPHQL_URI!,
         cache: new InMemoryCache(),
         headers: {
@@ -62,8 +71,6 @@ function hook(props: ProviderProps) {
     }
   }, [auth0User]);
 
-  console.log("useruser", user);
-
   return {
     auth0User,
     user: user?.user[0],
@@ -73,10 +80,11 @@ function hook(props: ProviderProps) {
   };
 }
 
-const { Provider: LoginProvider, useContext } = createMyContext<
-  Parameters<typeof hook>[0],
-  ReturnType<typeof hook>
->(hook);
+const {
+  Provider: LoginProvider,
+  Context: { Consumer: LoginConsumer },
+  useContext,
+} = createMyContext<Parameters<typeof hook>[0], ReturnType<typeof hook>>(hook);
 
 export { useContext };
 
@@ -90,7 +98,15 @@ export function Provider({
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
       redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI!}
     >
-      <LoginProvider {...props}>{children}</LoginProvider>
+      <LoginProvider {...props}>
+        <LoginConsumer>
+          {(ctx) => (
+            <ApolloProvider client={ctx!.apolloClient}>
+              {children}
+            </ApolloProvider>
+          )}
+        </LoginConsumer>
+      </LoginProvider>
     </Auth0Provider>
   );
 }

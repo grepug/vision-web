@@ -88,4 +88,11 @@ export class Objective implements ObjectiveProps {
       keyResults: this.keyResults.map((el) => el.toJSON()),
     };
   }
+
+  toJSON_Data() {
+    return {
+      ...this.toJSON(),
+      keyResults: { data: this.keyResults.map((el) => el.toJSON_data()) },
+    };
+  }
 }

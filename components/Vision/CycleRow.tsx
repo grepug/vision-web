@@ -15,7 +15,7 @@ export function CycleRow() {
       <CycleListModal />
       <Row justify="space-between">
         <Col>
-          <Typography.Title level={3}>My Cycle</Typography.Title>
+          <Typography.Title level={3}>{ctx.curCycle?.title}</Typography.Title>
         </Col>
         <Col>
           <Space>

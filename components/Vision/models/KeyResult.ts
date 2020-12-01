@@ -81,4 +81,13 @@ export class KeyResult implements KeyResultProps {
       records: this.records.map((el) => el.toJSON()),
     };
   }
+
+  toJSON_data() {
+    return {
+      ...this.toJSON(),
+      records: {
+        data: this.records.map((el) => el.toJSON()),
+      },
+    };
+  }
 }

@@ -7,6 +7,7 @@ import { getColumnConfig } from "../columnConfig";
 import { message } from "antd";
 import { Cycle } from "../models/Cycle";
 import { useContext as useLoginCtx } from "components/Login/Context";
+import { useMutations } from "./useMutations";
 
 const initialObjective = new Objective();
 
@@ -20,8 +21,6 @@ function useVision(props: {}) {
 
   const curCycle = cycleObjects?.find((el) => el.id === curCycleId);
 
-  console.log("curCycle", curCycle, cycleObjects, curCycleId);
-
   const [key, setKey] = React.useState(0);
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
   const [importModalVisible, setImportModalVisible] = React.useState(false);
@@ -33,25 +32,40 @@ function useVision(props: {}) {
   const [settingsModalVisible, setSettingsModalVisible] = React.useState(false);
   const curKeyResult = React.useRef<KeyResult>();
 
-  function forceRender() {
-    // okr.current.curCycleId = curCycle.current?.id;
-    // okr.current.sync();
+  const {
+    changeCurCycleId,
+    createCycle: createCycleMutation,
+    createObjective,
+  } = useMutations();
 
+  function forceRender() {
     setTimeout(() => setKey((s) => s + 1), 0);
   }
 
   function createCycle() {
-    // const cycle = new Cycle();
-    // okr.current.cycles.push(cycle);
-    // curCycle.current = cycle;
+    const cycle = new Cycle();
+    const data = cycle.toJSON_data();
 
-    forceRender();
+    createCycleMutation({
+      variables: {
+        objects: [
+          {
+            ...data,
+            userId: loginCtx.user?.id,
+          },
+        ],
+      },
+    });
   }
 
   function switchCycle(index: number) {
-    // curCycle.current = okr.current.cycles[index];
+    const cycleId = cycleObjects?.[index].id;
 
-    forceRender();
+    if (cycleId) {
+      changeCurCycleId({
+        variables: { curSelectedCycleId: cycleId, userId: loginCtx.user?.id },
+      });
+    }
   }
 
   function deleteCycle(cycleId: string, index: number) {
@@ -128,6 +142,22 @@ function useVision(props: {}) {
     });
   }
 
+  function handleAddObjective() {
+    const objective = new Objective();
+    const data = objective.toJSON_Data();
+
+    createObjective({
+      variables: {
+        objects: [
+          {
+            ...data,
+            cycle_id: curCycleId,
+          },
+        ],
+      },
+    });
+  }
+
   function handleAddKR(objective?: Objective) {
     mutateCycle((cycle) => {
       const isExistedObjective = objective != null;
@@ -183,6 +213,7 @@ function useVision(props: {}) {
     createCycle,
     switchCycle,
     deleteCycle,
+    handleAddObjective,
   };
 }
 

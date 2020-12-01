@@ -4,6 +4,7 @@ query GetUser($auth0UserId: String!) {
     name
     email
     userConfig {
+      id
       curSelectedCycleId
     }
   }

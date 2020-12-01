@@ -1,5 +1,0 @@
-mutation CreateCycle($objects: [cycle_insert_input!]! = []) {
-  insert_cycle(objects: $objects) {
-    affected_rows
-  }
-}

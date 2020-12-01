@@ -1,13 +1,9 @@
 import * as React from "react";
 import { Modal, Input, Typography, message, Button, Divider } from "antd";
 import { useContext } from "../Contexts/CycleContext";
-import { OKR } from "../models/OKR";
 import { TextAlignRight } from "../Styles/TextAlignRight";
 import { VerticalSpace } from "../Styles/VerticalSpace";
-import {
-  CreateCycleVariables,
-  CreateCycle_insert_cycle,
-} from "graphql/__generated__/createCycle";
+import { CreateCycleVariables } from "graphql/queries/__generated__/createCycle";
 import { Cycle } from "../models/Cycle";
 import { Objective } from "../models/Objective";
 import {
@@ -17,12 +13,9 @@ import {
 } from "__generated__/globalTypes";
 import { KeyResult } from "../models/KeyResult";
 import { Record } from "../models/Record";
-import createCyclesGql from "graphql/createCycles.gql";
-import { useContext as useLoginCtx } from "components/Login/Context";
 
 export function SettingsModal() {
   const ctx = useContext()!;
-  const loginCtx = useLoginCtx()!;
   const [importedValue, setImportedValue] = React.useState<string>();
 
   function handleCopy() {

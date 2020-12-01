@@ -30,7 +30,7 @@ export function OKRTableActionRow() {
     });
   }
 
-  const cycle = ctx.curCycle.current;
+  const cycle = ctx.curCycle;
 
   if (!cycle) {
     return null;
@@ -57,7 +57,7 @@ export function OKRTableActionRow() {
           <Button
             icon={<PlusOutlined />}
             type="primary"
-            onClick={() => ctx.handleAddKR()}
+            onClick={ctx.handleAddObjective}
           >
             Add Objective
           </Button>

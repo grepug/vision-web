@@ -1,0 +1,9 @@
+mutation ChangeCurCycleId($userId: uuid!, $curSelectedCycleId: uuid!) {
+  update_user_config_by_pk(
+    pk_columns: { userId: $userId }
+    _set: { curSelectedCycleId: $curSelectedCycleId }
+  ) {
+    id
+    curSelectedCycleId
+  }
+}

@@ -1,9 +1,12 @@
-import { Layout as LayoutAnt, Typography, Divider, Row, Col } from "antd";
+import { Layout as LayoutAnt, Typography, Divider, Row, Col, Spin } from "antd";
 import { Avatar } from "./Avatar";
+import { useLoginCtx } from "components/Login/Context";
 
 const { Header } = LayoutAnt;
 
 export function Layout(props: { children?: React.ReactNode }) {
+  const { user } = useLoginCtx()!;
+
   return (
     <LayoutAnt>
       <Header>
@@ -25,7 +28,9 @@ export function Layout(props: { children?: React.ReactNode }) {
       >
         <Typography.Title>Vision</Typography.Title>
         <Divider />
-        {props.children}
+        <Spin spinning={!user} size="large">
+          {props.children}
+        </Spin>
       </LayoutAnt.Content>
     </LayoutAnt>
   );

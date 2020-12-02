@@ -81,11 +81,16 @@ export function Provider({
   children,
   ...props
 }: { children?: ReactNode } & ProviderProps) {
+  const redirectUri =
+    typeof window !== "undefined"
+      ? `${window.location.protocol}//${window.location.host}/vision`
+      : "";
+
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
-      redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI!}
+      redirectUri={redirectUri}
     >
       <LoginProvider {...props}>
         <LoginConsumer>{(ctx) => children}</LoginConsumer>

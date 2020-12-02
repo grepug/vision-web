@@ -14,7 +14,7 @@ export function Avatar() {
             <Menu.Item
               onClick={() =>
                 ctx?.logout({
-                  returnTo: process.env.NEXT_PUBLIC_AUTH0_LOGOUT_REDIRECT_URI,
+                  returnTo: `${location.protocol}//${location.host}`,
                 })
               }
             >

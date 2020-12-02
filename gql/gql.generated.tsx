@@ -23,7 +23,7 @@ export type Cycle = {
   id: Scalars['uuid'];
   objectives: Array<Objective>;
   objectives_aggregate: Objective_Aggregate;
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
   remark: Scalars['String'];
   startAt: Scalars['timestamptz'];
   title: Scalars['String'];
@@ -116,11 +116,11 @@ export type Cycle_Arr_Rel_Insert_Input = {
 
 export type Cycle_Avg_Fields = {
   __typename?: 'cycle_avg_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Avg_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Bool_Exp = {
@@ -132,7 +132,7 @@ export type Cycle_Bool_Exp = {
   groups?: Maybe<Group_Cycle_Bool_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   objectives?: Maybe<Objective_Bool_Exp>;
-  predict_score?: Maybe<Numeric_Comparison_Exp>;
+  predictScore?: Maybe<Numeric_Comparison_Exp>;
   remark?: Maybe<String_Comparison_Exp>;
   startAt?: Maybe<Timestamptz_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
@@ -146,7 +146,7 @@ export enum Cycle_Constraint {
 }
 
 export type Cycle_Inc_Input = {
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
 };
 
 export type Cycle_Insert_Input = {
@@ -155,7 +155,7 @@ export type Cycle_Insert_Input = {
   groups?: Maybe<Group_Cycle_Arr_Rel_Insert_Input>;
   id?: Maybe<Scalars['uuid']>;
   objectives?: Maybe<Objective_Arr_Rel_Insert_Input>;
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   startAt?: Maybe<Scalars['timestamptz']>;
   title?: Maybe<Scalars['String']>;
@@ -169,7 +169,7 @@ export type Cycle_Max_Fields = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   endAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   startAt?: Maybe<Scalars['timestamptz']>;
   title?: Maybe<Scalars['String']>;
@@ -181,7 +181,7 @@ export type Cycle_Max_Order_By = {
   createdAt?: Maybe<Order_By>;
   endAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   startAt?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -194,7 +194,7 @@ export type Cycle_Min_Fields = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   endAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   startAt?: Maybe<Scalars['timestamptz']>;
   title?: Maybe<Scalars['String']>;
@@ -206,7 +206,7 @@ export type Cycle_Min_Order_By = {
   createdAt?: Maybe<Order_By>;
   endAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   startAt?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -237,7 +237,7 @@ export type Cycle_Order_By = {
   groups_aggregate?: Maybe<Group_Cycle_Aggregate_Order_By>;
   id?: Maybe<Order_By>;
   objectives_aggregate?: Maybe<Objective_Aggregate_Order_By>;
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   startAt?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
@@ -254,7 +254,7 @@ export enum Cycle_Select_Column {
   CreatedAt = 'createdAt',
   EndAt = 'endAt',
   Id = 'id',
-  PredictScore = 'predict_score',
+  PredictScore = 'predictScore',
   Remark = 'remark',
   StartAt = 'startAt',
   Title = 'title',
@@ -266,7 +266,7 @@ export type Cycle_Set_Input = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   endAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   startAt?: Maybe<Scalars['timestamptz']>;
   title?: Maybe<Scalars['String']>;
@@ -276,45 +276,45 @@ export type Cycle_Set_Input = {
 
 export type Cycle_Stddev_Fields = {
   __typename?: 'cycle_stddev_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Stddev_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Stddev_Pop_Fields = {
   __typename?: 'cycle_stddev_pop_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Stddev_Pop_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Stddev_Samp_Fields = {
   __typename?: 'cycle_stddev_samp_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Stddev_Samp_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Sum_Fields = {
   __typename?: 'cycle_sum_fields';
-  predict_score?: Maybe<Scalars['numeric']>;
+  predictScore?: Maybe<Scalars['numeric']>;
 };
 
 export type Cycle_Sum_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export enum Cycle_Update_Column {
   CreatedAt = 'createdAt',
   EndAt = 'endAt',
   Id = 'id',
-  PredictScore = 'predict_score',
+  PredictScore = 'predictScore',
   Remark = 'remark',
   StartAt = 'startAt',
   Title = 'title',
@@ -324,29 +324,29 @@ export enum Cycle_Update_Column {
 
 export type Cycle_Var_Pop_Fields = {
   __typename?: 'cycle_var_pop_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Var_Pop_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Var_Samp_Fields = {
   __typename?: 'cycle_var_samp_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Var_Samp_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Cycle_Variance_Fields = {
   __typename?: 'cycle_variance_fields';
-  predict_score?: Maybe<Scalars['Float']>;
+  predictScore?: Maybe<Scalars['Float']>;
 };
 
 export type Cycle_Variance_Order_By = {
-  predict_score?: Maybe<Order_By>;
+  predictScore?: Maybe<Order_By>;
 };
 
 export type Group = {
@@ -1854,8 +1854,8 @@ export type Record = {
   __typename?: 'record';
   createdAt: Scalars['timestamptz'];
   id: Scalars['uuid'];
-  keyResult?: Maybe<Key_Result>;
-  key_result_id?: Maybe<Scalars['uuid']>;
+  keyResult: Key_Result;
+  keyResultId: Scalars['uuid'];
   quantity: Scalars['numeric'];
   remark: Scalars['String'];
   updatedAt: Scalars['timestamptz'];
@@ -1923,7 +1923,7 @@ export type Record_Bool_Exp = {
   createdAt?: Maybe<Timestamptz_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   keyResult?: Maybe<Key_Result_Bool_Exp>;
-  key_result_id?: Maybe<Uuid_Comparison_Exp>;
+  keyResultId?: Maybe<Uuid_Comparison_Exp>;
   quantity?: Maybe<Numeric_Comparison_Exp>;
   remark?: Maybe<String_Comparison_Exp>;
   updatedAt?: Maybe<Timestamptz_Comparison_Exp>;
@@ -1941,7 +1941,7 @@ export type Record_Insert_Input = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
   keyResult?: Maybe<Key_Result_Obj_Rel_Insert_Input>;
-  key_result_id?: Maybe<Scalars['uuid']>;
+  keyResultId?: Maybe<Scalars['uuid']>;
   quantity?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -1951,7 +1951,7 @@ export type Record_Max_Fields = {
   __typename?: 'record_max_fields';
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  key_result_id?: Maybe<Scalars['uuid']>;
+  keyResultId?: Maybe<Scalars['uuid']>;
   quantity?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -1960,7 +1960,7 @@ export type Record_Max_Fields = {
 export type Record_Max_Order_By = {
   createdAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  key_result_id?: Maybe<Order_By>;
+  keyResultId?: Maybe<Order_By>;
   quantity?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   updatedAt?: Maybe<Order_By>;
@@ -1970,7 +1970,7 @@ export type Record_Min_Fields = {
   __typename?: 'record_min_fields';
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  key_result_id?: Maybe<Scalars['uuid']>;
+  keyResultId?: Maybe<Scalars['uuid']>;
   quantity?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -1979,7 +1979,7 @@ export type Record_Min_Fields = {
 export type Record_Min_Order_By = {
   createdAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  key_result_id?: Maybe<Order_By>;
+  keyResultId?: Maybe<Order_By>;
   quantity?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   updatedAt?: Maybe<Order_By>;
@@ -2006,7 +2006,7 @@ export type Record_Order_By = {
   createdAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   keyResult?: Maybe<Key_Result_Order_By>;
-  key_result_id?: Maybe<Order_By>;
+  keyResultId?: Maybe<Order_By>;
   quantity?: Maybe<Order_By>;
   remark?: Maybe<Order_By>;
   updatedAt?: Maybe<Order_By>;
@@ -2019,7 +2019,7 @@ export type Record_Pk_Columns_Input = {
 export enum Record_Select_Column {
   CreatedAt = 'createdAt',
   Id = 'id',
-  KeyResultId = 'key_result_id',
+  KeyResultId = 'keyResultId',
   Quantity = 'quantity',
   Remark = 'remark',
   UpdatedAt = 'updatedAt'
@@ -2028,7 +2028,7 @@ export enum Record_Select_Column {
 export type Record_Set_Input = {
   createdAt?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
-  key_result_id?: Maybe<Scalars['uuid']>;
+  keyResultId?: Maybe<Scalars['uuid']>;
   quantity?: Maybe<Scalars['numeric']>;
   remark?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['timestamptz']>;
@@ -2073,7 +2073,7 @@ export type Record_Sum_Order_By = {
 export enum Record_Update_Column {
   CreatedAt = 'createdAt',
   Id = 'id',
-  KeyResultId = 'key_result_id',
+  KeyResultId = 'keyResultId',
   Quantity = 'quantity',
   Remark = 'remark',
   UpdatedAt = 'updatedAt'
@@ -2768,7 +2768,7 @@ export type ObjectiveResFragment = (
 
 export type CycleResFragment = (
   { __typename?: 'cycle' }
-  & Pick<Cycle, 'id' | 'startAt' | 'endAt' | 'remark' | 'predict_score' | 'title'>
+  & Pick<Cycle, 'id' | 'startAt' | 'endAt' | 'remark' | 'predictScore' | 'title'>
   & { objectives: Array<(
     { __typename?: 'objective' }
     & ObjectiveResFragment
@@ -2809,6 +2809,104 @@ export type CreateKeyResultMutation = (
   & { insert_key_result_one?: Maybe<(
     { __typename?: 'key_result' }
     & Pick<Key_Result, 'id'>
+  )> }
+);
+
+export type DeleteCycleMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteCycleMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_cycle_by_pk?: Maybe<(
+    { __typename?: 'cycle' }
+    & Pick<Cycle, 'id'>
+  )> }
+);
+
+export type UpdateKrMutationVariables = Exact<{
+  krSet: Key_Result_Set_Input;
+  krId: Scalars['uuid'];
+  objId: Scalars['uuid'];
+  objSet: Objective_Set_Input;
+}>;
+
+
+export type UpdateKrMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_key_result_by_pk?: Maybe<(
+    { __typename?: 'key_result' }
+    & Pick<Key_Result, 'id'>
+  )>, update_objective_by_pk?: Maybe<(
+    { __typename?: 'objective' }
+    & Pick<Objective, 'id'>
+  )> }
+);
+
+export type AddRecordMutationVariables = Exact<{
+  object: Record_Insert_Input;
+}>;
+
+
+export type AddRecordMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_record_one?: Maybe<(
+    { __typename?: 'record' }
+    & Pick<Record, 'id'>
+  )> }
+);
+
+export type UpdateCycleMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  set: Cycle_Set_Input;
+}>;
+
+
+export type UpdateCycleMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_cycle_by_pk?: Maybe<(
+    { __typename?: 'cycle' }
+    & Pick<Cycle, 'id'>
+  )> }
+);
+
+export type DeleteKrMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteKrMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_key_result_by_pk?: Maybe<(
+    { __typename?: 'key_result' }
+    & Pick<Key_Result, 'id' | 'objectiveId'>
+  )> }
+);
+
+export type DeleteObjMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteObjMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_objective_by_pk?: Maybe<(
+    { __typename?: 'objective' }
+    & Pick<Objective, 'id'>
+  )> }
+);
+
+export type DeleteRecordMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteRecordMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_record_by_pk?: Maybe<(
+    { __typename?: 'record' }
+    & Pick<Record, 'id'>
   )> }
 );
 

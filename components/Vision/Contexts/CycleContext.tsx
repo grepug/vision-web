@@ -6,7 +6,6 @@ import type { ColumnsType } from "antd/lib/table/interface";
 import { getColumnConfig } from "../columnConfig";
 import { message } from "antd";
 import { Cycle } from "../models/Cycle";
-import { useLoginCtx } from "components/Login/Context";
 import { useCycle } from "../models/useCycle";
 
 function useVision(_: {}) {
@@ -19,6 +18,13 @@ function useVision(_: {}) {
     handleChangeCurSelectedCycle,
     handleCreateObjective,
     handleCreateKR,
+    handleDeleteCycle,
+    handleCreateCycle,
+    handleUpdateKR,
+    handleUpdateCycle,
+    handleDeleteKR,
+    handleAddRecord,
+    handleDeleteRecord,
   } = useCycle();
 
   const [exportModalVisible, setExportModalVisible] = React.useState(false);
@@ -32,8 +38,7 @@ function useVision(_: {}) {
   const curKeyResult = React.useRef<KeyResult>();
 
   function createCycle() {
-    const cycle = new Cycle();
-    const data = cycle.toJSON_data();
+    handleCreateCycle();
   }
 
   function switchCycle(index: number) {
@@ -45,19 +50,10 @@ function useVision(_: {}) {
   }
 
   function deleteCycle(cycleId: string, index: number) {
-    // okr.current.cycles.splice(index, 1);
-    // if (cycleId === curCycle.current?.id) {
-    //   curCycle.current = okr.current.cycles[0];
-    // }
+    handleDeleteCycle(cycleId, index);
   }
 
-  function mutateCycle(cycle: Cycle | ((cycle: Cycle) => Cycle)) {
-    // if (!curCycle.current) return;
-    // if (typeof cycle === "function") {
-    //   cycle = cycle(curCycle.current);
-    // }
-    // curCycle.current = cycle;
-  }
+  function mutateCycle(cycle: Cycle | ((cycle: Cycle) => Cycle)) {}
 
   const columns: ColumnsType = getColumnConfig({
     handleDelete,
@@ -90,26 +86,11 @@ function useVision(_: {}) {
   });
 
   function handleDelete(keyResult: KeyResult) {
-    mutateCycle((cycle) => {
-      const index = cycle.findIndexByKeyResult(keyResult);
-      const objective = cycle.objectives[index];
-      objective.deleteKeyResult(keyResult);
-
-      if (objective.keyResults.length === 0) {
-        cycle.deleteObjective(objective);
-      }
-
-      return cycle;
-    });
+    handleDeleteKR(keyResult, keyResult.objective.keyResults.length === 1);
   }
 
   function handleEdit(keyResult: KeyResult) {
-    mutateCycle((cycle) => {
-      const index = cycle.findIndexByKeyResult(keyResult);
-      cycle.objectives[index].editKeyResult(keyResult);
-
-      return cycle;
-    });
+    handleUpdateKR(keyResult);
   }
 
   function handleAddKR(objective: Objective) {
@@ -151,6 +132,10 @@ function useVision(_: {}) {
     deleteCycle,
     handleCreateObjective,
     forceRender,
+    handleUpdateCycle,
+    handleAddRecord,
+    handleUpdateKR,
+    handleDeleteRecord,
   };
 }
 

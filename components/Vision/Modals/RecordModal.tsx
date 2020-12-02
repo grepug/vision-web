@@ -2,14 +2,11 @@ import {
   Modal,
   List,
   Typography,
-  Space,
   Form,
-  DatePicker,
   Divider,
   InputNumber,
   Input,
   Button,
-  message,
 } from "antd";
 import { useContext } from "../Contexts/CycleContext";
 import { Record } from "../models/Record";
@@ -26,28 +23,16 @@ export function RecordModal() {
   async function handleAdd() {
     const value = await form.validateFields();
 
-    ctx.mutateCycle((cycle) => {
-      const keyResult = ctx.curKeyResult.current;
+    const keyResult = ctx.curKeyResult.current;
 
-      if (keyResult) {
-        if (keyResult.total >= keyResult.current + value.quantity) {
-          keyResult?.records.push(new Record(value));
-          form.resetFields();
-        } else {
-          message.error("Invalid quantity");
-        }
-      }
-
-      return cycle;
-    });
+    if (keyResult) {
+      ctx.handleAddRecord(value, keyResult);
+      form.resetFields();
+    }
   }
 
   function handleDelete(index: number) {
-    ctx.mutateCycle((cycle) => {
-      ctx.curKeyResult.current?.records.splice(index, 1);
-
-      return cycle;
-    });
+    ctx.handleDeleteRecord(ctx.curKeyResult.current!, index);
   }
 
   const keyResult = ctx.curKeyResult.current;

@@ -63,7 +63,10 @@ export class Cycle implements CycleProps {
   }
 
   get renderingKeyResults() {
-    return this.objectives.map((el) => el.keyResults).flat();
+    return this.objectives
+      .sort((x, y) => y.weight - x.weight)
+      .map((el) => el.keyResults.sort((x, y) => y.weight - x.weight))
+      .flat();
   }
 
   get keyResultCount() {

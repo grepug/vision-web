@@ -15,15 +15,10 @@ export function KeyResultsDetailModal() {
   async function handleSave() {
     const values = await form.validateFields();
 
-    ctx.mutateCycle((cycle) => {
-      if (keyResult) {
-        keyResult.remark = values.remark;
-      }
-
-      return cycle;
-    });
-
-    ctx.forceRender();
+    if (keyResult) {
+      keyResult.remark = values.remark;
+      ctx.handleUpdateKR(keyResult);
+    }
 
     handleCancel();
   }

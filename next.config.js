@@ -1,6 +1,6 @@
 const { config } = require("dotenv");
 
-const { parsed: DEV } = config({ path: ".env.development" });
+config({ path: ".env.development" });
 
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -15,8 +15,12 @@ module.exports = {
   rewrites: async () => {
     return [
       {
-        source: DEV.NEXT_PUBLIC_GRAPHQL_URI,
-        destination: DEV.NEXT_PUBLIC_REAL_GRAPHQL_URI,
+        source: "/blog",
+        destination: "https://blog.getvisionapp.com",
+      },
+      {
+        source: process.env.NEXT_PUBLIC_GRAPHQL_URI,
+        destination: process.env.NEXT_PUBLIC_REAL_GRAPHQL_URI,
       },
     ];
   },

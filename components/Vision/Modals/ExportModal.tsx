@@ -35,7 +35,7 @@ export function ExportModal() {
     >
       <Input.TextArea
         id="copy-input"
-        value={ctx.curCycle.current?.toJSONString()}
+        value={ctx.curCycle.toJSONString()}
         style={{ height: 300 }}
       />
     </Modal>

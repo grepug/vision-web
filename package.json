@@ -6,6 +6,7 @@
     "dev": "next dev --port 5100",
     "build": "next build",
     "start": "next start",
+    "install": "npm run gen",
     "gen": "node scripts/genGraphqlCode.js"
   },
   "dependencies": {

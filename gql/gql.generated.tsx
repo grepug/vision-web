@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  date: any;
   numeric: any;
   timestamptz: any;
   uuid: any;
@@ -349,15 +350,30 @@ export type Cycle_Variance_Order_By = {
   predictScore?: Maybe<Order_By>;
 };
 
+
+export type Date_Comparison_Exp = {
+  _eq?: Maybe<Scalars['date']>;
+  _gt?: Maybe<Scalars['date']>;
+  _gte?: Maybe<Scalars['date']>;
+  _in?: Maybe<Array<Scalars['date']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['date']>;
+  _lte?: Maybe<Scalars['date']>;
+  _neq?: Maybe<Scalars['date']>;
+  _nin?: Maybe<Array<Scalars['date']>>;
+};
+
 export type Group = {
   __typename?: 'group';
-  created_at: Scalars['timestamptz'];
+  createdAt: Scalars['timestamptz'];
   creator: User;
-  creator_user_id: Scalars['uuid'];
+  creatorUserId: Scalars['uuid'];
   cycles: Array<Group_Cycle>;
   cycles_aggregate: Group_Cycle_Aggregate;
+  endAt: Scalars['date'];
   id: Scalars['uuid'];
-  updated_at: Scalars['timestamptz'];
+  startAt: Scalars['date'];
+  updatedAt: Scalars['timestamptz'];
 };
 
 
@@ -412,12 +428,14 @@ export type Group_Bool_Exp = {
   _and?: Maybe<Array<Maybe<Group_Bool_Exp>>>;
   _not?: Maybe<Group_Bool_Exp>;
   _or?: Maybe<Array<Maybe<Group_Bool_Exp>>>;
-  created_at?: Maybe<Timestamptz_Comparison_Exp>;
+  createdAt?: Maybe<Timestamptz_Comparison_Exp>;
   creator?: Maybe<User_Bool_Exp>;
-  creator_user_id?: Maybe<Uuid_Comparison_Exp>;
+  creatorUserId?: Maybe<Uuid_Comparison_Exp>;
   cycles?: Maybe<Group_Cycle_Bool_Exp>;
+  endAt?: Maybe<Date_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
-  updated_at?: Maybe<Timestamptz_Comparison_Exp>;
+  startAt?: Maybe<Date_Comparison_Exp>;
+  updatedAt?: Maybe<Timestamptz_Comparison_Exp>;
 };
 
 export enum Group_Constraint {
@@ -572,42 +590,52 @@ export enum Group_Cycle_Update_Column {
 }
 
 export type Group_Insert_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
   creator?: Maybe<User_Obj_Rel_Insert_Input>;
-  creator_user_id?: Maybe<Scalars['uuid']>;
+  creatorUserId?: Maybe<Scalars['uuid']>;
   cycles?: Maybe<Group_Cycle_Arr_Rel_Insert_Input>;
+  endAt?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  startAt?: Maybe<Scalars['date']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
 };
 
 export type Group_Max_Fields = {
   __typename?: 'group_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  creator_user_id?: Maybe<Scalars['uuid']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  creatorUserId?: Maybe<Scalars['uuid']>;
+  endAt?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  startAt?: Maybe<Scalars['date']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
 };
 
 export type Group_Max_Order_By = {
-  created_at?: Maybe<Order_By>;
-  creator_user_id?: Maybe<Order_By>;
+  createdAt?: Maybe<Order_By>;
+  creatorUserId?: Maybe<Order_By>;
+  endAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  updated_at?: Maybe<Order_By>;
+  startAt?: Maybe<Order_By>;
+  updatedAt?: Maybe<Order_By>;
 };
 
 export type Group_Min_Fields = {
   __typename?: 'group_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  creator_user_id?: Maybe<Scalars['uuid']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  creatorUserId?: Maybe<Scalars['uuid']>;
+  endAt?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  startAt?: Maybe<Scalars['date']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
 };
 
 export type Group_Min_Order_By = {
-  created_at?: Maybe<Order_By>;
-  creator_user_id?: Maybe<Order_By>;
+  createdAt?: Maybe<Order_By>;
+  creatorUserId?: Maybe<Order_By>;
+  endAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  updated_at?: Maybe<Order_By>;
+  startAt?: Maybe<Order_By>;
+  updatedAt?: Maybe<Order_By>;
 };
 
 export type Group_Mutation_Response = {
@@ -628,12 +656,14 @@ export type Group_On_Conflict = {
 };
 
 export type Group_Order_By = {
-  created_at?: Maybe<Order_By>;
+  createdAt?: Maybe<Order_By>;
   creator?: Maybe<User_Order_By>;
-  creator_user_id?: Maybe<Order_By>;
+  creatorUserId?: Maybe<Order_By>;
   cycles_aggregate?: Maybe<Group_Cycle_Aggregate_Order_By>;
+  endAt?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  updated_at?: Maybe<Order_By>;
+  startAt?: Maybe<Order_By>;
+  updatedAt?: Maybe<Order_By>;
 };
 
 export type Group_Pk_Columns_Input = {
@@ -641,24 +671,30 @@ export type Group_Pk_Columns_Input = {
 };
 
 export enum Group_Select_Column {
-  CreatedAt = 'created_at',
-  CreatorUserId = 'creator_user_id',
+  CreatedAt = 'createdAt',
+  CreatorUserId = 'creatorUserId',
+  EndAt = 'endAt',
   Id = 'id',
-  UpdatedAt = 'updated_at'
+  StartAt = 'startAt',
+  UpdatedAt = 'updatedAt'
 }
 
 export type Group_Set_Input = {
-  created_at?: Maybe<Scalars['timestamptz']>;
-  creator_user_id?: Maybe<Scalars['uuid']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  creatorUserId?: Maybe<Scalars['uuid']>;
+  endAt?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  startAt?: Maybe<Scalars['date']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
 };
 
 export enum Group_Update_Column {
-  CreatedAt = 'created_at',
-  CreatorUserId = 'creator_user_id',
+  CreatedAt = 'createdAt',
+  CreatorUserId = 'creatorUserId',
+  EndAt = 'endAt',
   Id = 'id',
-  UpdatedAt = 'updated_at'
+  StartAt = 'startAt',
+  UpdatedAt = 'updatedAt'
 }
 
 export type Key_Result = {

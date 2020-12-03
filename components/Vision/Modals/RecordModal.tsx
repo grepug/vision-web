@@ -9,7 +9,6 @@ import {
   Button,
 } from "antd";
 import { useContext } from "../Contexts/CycleContext";
-import { Record } from "../models/Record";
 import { DeleteButton } from "../DeleteButton";
 
 export function RecordModal() {

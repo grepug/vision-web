@@ -25,3 +25,16 @@ export const CHANGE_CUR_CYCLE_ID_GQL = gql`
     }
   }
 `;
+
+export const CREATE_USER_CONFIG_AND_SET_CUR_CYCLE_ID = gql`
+  mutation CreateUserConfigAndSetCurCycleId(
+    $userId: uuid!
+    $curSelectedCycleId: uuid!
+  ) {
+    insert_user_config_one(
+      object: { userId: $userId, curSelectedCycleId: $curSelectedCycleId }
+    ) {
+      id
+    }
+  }
+`;

@@ -3000,3 +3000,17 @@ export type ChangeCurCycleIdMutation = (
     & Pick<User_Config, 'id' | 'curSelectedCycleId'>
   )> }
 );
+
+export type CreateUserConfigAndSetCurCycleIdMutationVariables = Exact<{
+  userId: Scalars['uuid'];
+  curSelectedCycleId: Scalars['uuid'];
+}>;
+
+
+export type CreateUserConfigAndSetCurCycleIdMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_user_config_one?: Maybe<(
+    { __typename?: 'user_config' }
+    & Pick<User_Config, 'id'>
+  )> }
+);

@@ -18,7 +18,10 @@ import {
   DELETE_OBJ,
   DELETE_RECORD,
 } from "gql/cycle.gql";
-import { CHANGE_CUR_CYCLE_ID_GQL } from "gql/user.gql";
+import {
+  CHANGE_CUR_CYCLE_ID_GQL,
+  CREATE_USER_CONFIG_AND_SET_CUR_CYCLE_ID,
+} from "gql/user.gql";
 import { CREATE_OBJECTIVE } from "gql/objective.gql";
 
 import {
@@ -45,6 +48,8 @@ import {
   DeleteObjMutationVariables,
   DeleteRecordMutation,
   DeleteRecordMutationVariables,
+  CreateUserConfigAndSetCurCycleIdMutation,
+  CreateUserConfigAndSetCurCycleIdMutationVariables,
 } from "gql/gql.generated";
 import { Record } from "./Record";
 /**
@@ -69,13 +74,25 @@ export function useCycle() {
   }, [loginCtx.user]);
 
   async function handleChangeCurSelectedCycle(id: string) {
-    await loginCtx.client?.request<
+    const res = await loginCtx.client?.request<
       ChangeCurCycleIdMutation,
       ChangeCurCycleIdMutationVariables
     >(CHANGE_CUR_CYCLE_ID_GQL, {
       curSelectedCycleId: id,
       userId: loginCtx.user?.id,
     });
+
+    const isSucc = Boolean(res?.update_user_config_by_pk?.id);
+
+    if (!isSucc) {
+      await loginCtx.client?.request<
+        CreateUserConfigAndSetCurCycleIdMutation,
+        CreateUserConfigAndSetCurCycleIdMutationVariables
+      >(CREATE_USER_CONFIG_AND_SET_CUR_CYCLE_ID, {
+        userId: loginCtx.user?.id,
+        curSelectedCycleId: id,
+      });
+    }
 
     loginCtx.setUser((user) => {
       const userConfig = user?.userConfig;
@@ -110,6 +127,8 @@ export function useCycle() {
     });
 
     forceRender();
+
+    return cycle;
   }
 
   async function handleUpdateCycle(

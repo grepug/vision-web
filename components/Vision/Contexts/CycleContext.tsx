@@ -37,8 +37,11 @@ function useVision(_: {}) {
   const [settingsModalVisible, setSettingsModalVisible] = React.useState(false);
   const curKeyResult = React.useRef<KeyResult>();
 
-  function createCycle() {
-    handleCreateCycle();
+  async function createCycle() {
+    const newCycle = await handleCreateCycle();
+    const index = cycle.findIndex((el) => el.id === newCycle.id);
+
+    switchCycle(index);
   }
 
   function switchCycle(index: number) {

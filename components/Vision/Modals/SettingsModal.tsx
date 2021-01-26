@@ -3,16 +3,6 @@ import { Modal, Input, Typography, message, Button, Divider } from "antd";
 import { useContext } from "../Contexts/CycleContext";
 import { TextAlignRight } from "../Styles/TextAlignRight";
 import { VerticalSpace } from "../Styles/VerticalSpace";
-import { CreateCycleVariables } from "graphql/queries/__generated__/createCycle";
-import { Cycle } from "../models/Cycle";
-import { Objective } from "../models/Objective";
-import {
-  objective_arr_rel_insert_input,
-  key_result_arr_rel_insert_input,
-  record_arr_rel_insert_input,
-} from "__generated__/globalTypes";
-import { KeyResult } from "../models/KeyResult";
-import { Record } from "../models/Record";
 
 export function SettingsModal() {
   const ctx = useContext()!;
@@ -92,46 +82,4 @@ export function SettingsModal() {
       </TextAlignRight>
     </Modal>
   );
-}
-
-function transformCycleToVariable(
-  cycles: Cycle[],
-  userId: string,
-): CreateCycleVariables {
-  return {
-    objects: cycles.map((el) => ({
-      ...el,
-      userId,
-      objectives: transformObjective(el.objectives),
-    })),
-  };
-
-  function transformObjective(
-    objectives: Objective[],
-  ): objective_arr_rel_insert_input {
-    return {
-      data: objectives.map((el) => ({
-        ...el,
-        keyResults: transformKeyResults(el.keyResults),
-      })),
-    };
-  }
-
-  function transformKeyResults(
-    krs: KeyResult[],
-  ): key_result_arr_rel_insert_input {
-    return {
-      data: krs.map((el) => ({
-        ...el,
-        objective: undefined,
-        records: transformRecords(el.records),
-      })),
-    };
-  }
-
-  function transformRecords(records: Record[]): record_arr_rel_insert_input {
-    return {
-      data: records,
-    };
-  }
 }

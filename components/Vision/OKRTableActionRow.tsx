@@ -18,16 +18,17 @@ export function OKRTableActionRow() {
   const ctx = useContext()!;
 
   function handleSave(value: moment.Moment[] | undefined) {
-    ctx.mutateCycle((cycle) => {
-      if (value) {
-        const [start, end] = value;
+    if (value) {
+      const [start, end] = value;
 
-        cycle.startAt = start.format("YYYY-MM-DDTHH:mm:ssZ");
-        cycle.endAt = end.format("YYYY-MM-DDTHH:mm:ssZ");
-      }
+      const startAt = start.format("YYYY-MM-DDTHH:mm:ssZ");
+      const endAt = end.format("YYYY-MM-DDTHH:mm:ssZ");
 
-      return cycle;
-    });
+      ctx.handleUpdateCycle(ctx.curCycleId!, {
+        startAt,
+        endAt,
+      });
+    }
   }
 
   const cycle = ctx.curCycle;
@@ -57,11 +58,11 @@ export function OKRTableActionRow() {
           <Button
             icon={<PlusOutlined />}
             type="primary"
-            onClick={ctx.handleAddObjective}
+            onClick={ctx.handleCreateObjective}
           >
             Add Objective
           </Button>
-          {!!cycle.renderingKeyResults.length && (
+          {!!cycle.objectives.length && (
             <Dropdown overlay={addKeyResultMenu}>
               <Button icon={<PlusOutlined />}>Add Key Result</Button>
             </Dropdown>

@@ -35,7 +35,14 @@ export const getEditableCell = (props: { forceRender: () => void }) =>
       try {
         const values = await form.validateFields();
         toggleEdit();
-        handleSave({ ...record, ...values });
+
+        if (values.objective) {
+          Object.assign(record.objective, values.objective);
+        } else {
+          Object.assign(record, values);
+        }
+
+        handleSave(record);
 
         props.forceRender();
       } catch (errInfo) {
